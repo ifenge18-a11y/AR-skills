@@ -1,0 +1,4 @@
+interface:
+  display_name: "Accounting Research Assistant"
+  short_description: "Assist accounting research workflows"
+  default_prompt: "Use $accounting-research-assistant to turn my accounting research question into a rigorous literature, identification, data, and writing plan."
