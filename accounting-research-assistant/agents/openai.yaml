@@ -1,4 +1,4 @@
 interface:
   display_name: "Accounting Research Assistant"
-  short_description: "Assist accounting research workflows"
-  default_prompt: "Use $accounting-research-assistant to turn my accounting research question into a rigorous literature, identification, data, and writing plan."
+  short_description: "Boss-led multi-agent accounting research"
+  default_prompt: "Use $accounting-research-assistant in Boss-led multi-agent mode to turn my accounting research question into a rigorous literature, theory, identification, data, code, and writing plan."

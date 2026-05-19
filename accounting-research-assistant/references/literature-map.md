@@ -18,6 +18,18 @@ Start from the user's construct and setting, then expand through synonyms:
 
 Prefer seed papers from top accounting journals and adjacent finance/economics journals, then snowball forward and backward.
 
+Priority English accounting journals:
+
+- The Accounting Review (AR/TAR)
+- Journal of Accounting Research (JAR)
+- Review of Accounting Studies (RAST)
+- Contemporary Accounting Research (CAR)
+- Journal of Accounting and Economics (JAE)
+
+Priority Chinese sources: CNKI CSSCI journals, especially economics and management journals such as Economic Research Journal, Management World, Accounting Research, Management Review, Journal of Financial Research, and China Industrial Economics.
+
+Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If a record cannot be verified from a reliable source, label it as unverified or partially verified instead of citing it as fact.
+
 ## Literature Matrix
 
 Use this table structure:
