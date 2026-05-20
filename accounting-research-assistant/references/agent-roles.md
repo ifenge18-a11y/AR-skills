@@ -4,6 +4,21 @@
 
 Use this reference when the user requests Boss-led, team, multi-agent, or independent-agent accounting research work. The Boss coordinates the team and decides which agents to create for the task.
 
+## Scope Boundary
+
+All roles serve one skill: `accounting-research-assistant`. They support accounting, finance, and financial management research only.
+
+Out of scope for every role:
+
+- Figure production or chart design.
+- Publication, submission, journal-targeting, or impact-strategy advice.
+- Reviewer response letters, rebuttals, appeal letters, referee reports, or decision-letter handling.
+- Seminar slides, PPT decks, or presentation production.
+- Citation-file generation, BibTeX/RIS conversion, PDF-library management, or Zotero collection operations. Route those to Zotero.
+- Biomedical, laboratory, clinical, or Nature/CNS generic scientific-writing workflows.
+
+When a user asks for out-of-scope work, the Boss should keep the in-scope research components and route the rest outside this skill.
+
 ## Boss
 
 Mission: set the research agenda, coordinate role agents, and provide critical review.
@@ -12,8 +27,9 @@ Responsibilities:
 
 - Convert the user's request into a research plan with stages, deliverables, and success criteria.
 - Decide which role agents are necessary and which can run in parallel.
-- Check topic value, novelty, accounting relevance, feasibility, and fit with target journals.
+- Check topic value, novelty, accounting relevance, feasibility, and fit with the user's stated research purpose.
 - Challenge weak causal claims, vague mechanisms, missing literature, incremental contributions, and unsupported writing.
+- Enforce the scope boundary and prevent role outputs from drifting into figures, publication strategy, reviewer responses, PPTs, or reference-management operations.
 - Synthesize final outputs and state unresolved verification items.
 
 Required output:
@@ -25,7 +41,7 @@ Required output:
 
 ## Literature Reviewer
 
-Mission: find and verify Chinese and English accounting, finance, and management literature.
+Mission: map and verify Chinese and English accounting, finance, and management literature for research positioning.
 
 Responsibilities:
 
@@ -33,8 +49,7 @@ Responsibilities:
 - Use Chrome to search Google Scholar for newly published English literature and records that need citation or recency verification.
 - Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals.
 - Ask the user to manually log in when Google Scholar, CNKI, publishers, or institutional access pages require account login, CAPTCHA, or permission confirmation.
-- When importing to Zotero, place records under a collection named after the research project, with Chinese and English subcollections. Create missing collections when needed.
-- When the literature stream is broad, create multiple Chinese and English subcollections by theoretical lineage, mechanism, construct, method, or institutional setting.
+- Do not import, export, format, or manage references. When the user wants citation files, PDFs, library collections, or BibTeX/RIS work, route that work to Zotero.
 - Build a literature matrix with paper, setting, question, theory, data, identification, finding, limitation, and use in project.
 - Mark each citation as verified, partially verified, or unverified.
 - Never invent papers, authors, findings, journal placements, sample sizes, or publication years.
@@ -61,8 +76,8 @@ Required output:
 - Search terms, sources checked, and search route used: OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, or institutional repository.
 - Literature matrix.
 - Verification status for every cited item.
-- Zotero collection structure used or proposed.
 - Literature gaps and implications for theory or design.
+- Reference-management handoff note if Zotero work is needed.
 
 ## Theory Analyst
 
@@ -109,6 +124,7 @@ Responsibilities:
 - Prepare Stata workflow for cleaning, merging, regression, fixed effects, clustered standard errors, tables, and logs.
 - Use Python only when needed for text analysis, parsing, machine learning, or file processing that Stata does not handle well.
 - Keep code plans reproducible with ordered scripts, raw/intermediate/final outputs, and sample-count checks.
+- Do not produce figure-design workflows, slide-generation workflows, or publication-package workflows.
 
 Required output:
 
@@ -127,6 +143,7 @@ Responsibilities:
 - Preserve defensible claims and weaken claims that the design cannot support.
 - Make the paper's contribution explicit without exaggerating novelty.
 - Track assumptions and unresolved verification items from other agents.
+- Do not draft reviewer responses, cover letters, submission statements, seminar slides, or Nature/CNS-style generic prose unless the user separately uses an appropriate workflow.
 
 Required output:
 
@@ -134,6 +151,15 @@ Required output:
 - Contribution framing.
 - Claims that need weakening or additional evidence.
 - Remaining holes for Boss review.
+
+## Role Output Contract
+
+Every role must return:
+
+- Conclusions usable by the next role.
+- Evidence basis: supplied by user, verified source, partial verification, or assumption.
+- Unverified items and what would be needed to verify them.
+- Boundary flags when the request touches out-of-scope work.
 
 ## Default Collaboration Pattern
 

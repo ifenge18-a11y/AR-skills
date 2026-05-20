@@ -2,7 +2,21 @@
 
 ## Use For
 
-Use this reference for literature reviews, related-work sections, gap identification, citation strategy, and paper positioning.
+Use this reference for literature reviews, related-work sections, gap identification, literature-use strategy, and paper positioning.
+
+This file supports intellectual literature work: mapping conversations, constructs, theory, evidence, limitations, and contribution boundaries. It does not manage references. Use Zotero for BibTeX/RIS, PDF handling, imports, exports, citation keys, and local library collections.
+
+## Intake Check
+
+Before mapping literature, identify:
+
+- Research construct and likely synonyms.
+- Research setting: accounting, finance, financial management, audit, disclosure, governance, tax, ESG, capital markets, China A-share, or adjacent management/economics.
+- Unit of analysis or evidence base when known.
+- User's purpose: topic screening, positioning, related-work section, theory support, design precedent, or citation verification.
+- Language scope: English, Chinese, or both.
+
+If the request is mainly reference-library work, route it to Zotero and keep this file focused on research meaning.
 
 ## Search Strategy
 
@@ -41,6 +55,16 @@ Priority Chinese sources: CNKI CSSCI journals, especially economics and manageme
 
 Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If a record cannot be verified from a reliable source, label it as unverified or partially verified instead of citing it as fact.
 
+## Verification Labels
+
+Use exactly one label for each record:
+
+- `verified`: key facts are checked against a publisher page, journal page, DOI record, SSRN/NBER/institutional repository, CNKI detail page, or another reliable source.
+- `partially verified`: title/authors/year or venue are supported, but important details such as findings, sample, identification, DOI, or final publication status are not fully checked.
+- `unverified`: discovered through search or memory but not confirmed from a reliable source.
+
+Never use unverified records as decisive support for a contribution, theory claim, or design precedent. They can be listed as candidates for follow-up.
+
 ## Literature Matrix
 
 Use this table structure:
@@ -51,6 +75,8 @@ Use this table structure:
 Keep the "Use in project" column explicit: background, contrast, mechanism support, measurement precedent, design precedent, or contribution boundary.
 
 Use "Source route" to show where the record came from, such as OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, or institutional repository. Use "Verification" to mark verified, partially verified, or unverified.
+
+For "Use in project", choose precise roles such as background, contrast, mechanism support, measurement precedent, identification precedent, institutional setting, contribution boundary, or unresolved competing evidence.
 
 ## Gap Assessment
 
@@ -73,3 +99,22 @@ Strong positioning usually follows this pattern:
 5. "The study contributes by..."
 
 Avoid overclaiming novelty if the contribution is mainly setting extension, improved measurement, or a sharper mechanism test.
+
+## Output Contract
+
+For literature-mapping tasks, return:
+
+- Search route and scope used.
+- Literature matrix with verification labels.
+- Theoretical conversations and unresolved tensions.
+- Contribution boundary: what the user's project can and cannot claim relative to prior work.
+- Missing verification list for papers, findings, data facts, or publication status.
+- Zotero handoff note only when the user needs reference-management operations.
+
+## QA Checklist
+
+- No invented papers, findings, sample sizes, journal placements, issue data, or DOIs.
+- Chinese and English literature are not treated as interchangeable when institutional settings differ.
+- A paper's finding is not generalized beyond its setting, data, and identification.
+- Literature gaps are framed as theory, setting, measurement, boundary, or design gaps, not just absence claims.
+- Citation formatting and library management are left to Zotero.

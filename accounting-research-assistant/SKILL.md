@@ -1,9 +1,34 @@
 ---
 name: accounting-research-assistant
-description: Assist accounting research workflows across topic refinement, literature review, theory development, research design, data and variable planning, empirical identification, robustness checks, paper writing, reviewer response, and replication package preparation. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript revision, seminar slides, referee reports, or research project planning in accounting.
+version: 0.1.0
+description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 ---
 
 # Accounting Research Assistant
+
+## Scope Boundary
+
+This is a single skill for accounting, finance, and financial management research. Keep all work inside the existing research-assistant scope:
+
+- In scope: research question shaping, literature understanding and positioning, theory and hypotheses, empirical design, data and variable planning, Stata/Python analysis plans, reproducibility planning, and manuscript section drafting or revision.
+- Out of scope: figure production, publication or submission strategy, reviewer response letters, rebuttals, seminar or PPT decks, Nature/CNS-style generic scientific writing, biomedical workflows, citation-file generation, BibTeX/RIS conversion, PDF library management, and Zotero library operations.
+- Zotero owns reference-management work. When users ask for citation files, imports, exports, PDFs, collections, or local bibliography management, route those tasks to Zotero instead of expanding this skill.
+
+When a user request mixes in-scope and out-of-scope work, handle the in-scope research work and explicitly route the out-of-scope portion to the appropriate tool or a separate workflow.
+
+## Single-Skill Routing
+
+Start every request by classifying the task into one or more internal routes. If the request spans routes, work in this order: topic, literature, theory, design, data, code, writing.
+
+| Route | Use when the user needs | Reference |
+|---|---|---|
+| Topic shaping | Research question, contribution, setting, feasibility | This file |
+| Literature understanding | Literature map, gap, positioning, construct lineage | `references/literature-map.md` |
+| Theory and hypotheses | Mechanisms, competing explanations, boundary conditions | This file |
+| Research design | Sample, model, identification, robustness, validity threats | `references/research-design.md` |
+| Data and variables | Databases, joins, variable definitions, sample filters | `references/data-and-variables.md` |
+| Code planning | Stata/Python workflow, script order, reproducibility checks | `references/data-and-variables.md` |
+| Manuscript writing | Abstract, introduction, theory, research design, result narrative | `references/writing-workflow.md` |
 
 ## Boss-Led Agent Orchestration
 
@@ -21,16 +46,17 @@ Default runtime protocol:
 
 ## Core Workflow
 
-Start by classifying the user's request into one of these modes, then use the relevant checklist. If the request spans modes, work in this order: research question, theory, design, data, writing.
+After routing the request, use the relevant checklist. If the user's request is outside the scope boundary, say so briefly and redirect to the appropriate tool or workflow rather than absorbing the task into this skill.
 
 1. **Idea shaping**: turn a broad interest into a falsifiable accounting research question.
 2. **Literature mapping**: locate conversations, constructs, mechanisms, and unresolved tensions.
 3. **Theory and hypotheses**: connect institutional setting, incentives, information environment, agency conflicts, and measurement choices.
 4. **Research design**: propose sample, variables, model, identification strategy, robustness, and threats.
 5. **Data planning**: specify databases, joins, filters, variable definitions, and reproducible cleaning steps.
-6. **Writing and revision**: improve abstracts, introductions, contribution framing, result narratives, reviewer responses, and replication documentation.
+6. **Code planning**: convert a stable empirical design into reproducible Stata/Python script order, outputs, checks, and logs.
+7. **Writing and revision**: improve abstracts, introductions, theory sections, hypotheses, research-design prose, result narratives, contribution framing, and replication documentation.
 
-Prefer outputs that are immediately usable by a researcher: tables, model equations, variable dictionaries, literature matrices, reviewer-response drafts, analysis plans, or manuscript-ready prose.
+Prefer outputs that are immediately usable by a researcher: tables, model equations, variable dictionaries, literature matrices, analysis plans, code workflow plans, or manuscript-ready prose.
 
 ## Research Discipline
 
@@ -40,7 +66,7 @@ Before giving recommendations, identify:
 - Unit of analysis: firm-year, firm-quarter, audit engagement, analyst forecast, restatement event, director-year, city-year, subsidiary-year, executive-year, transaction, or text document.
 - Inference goal: descriptive mapping, association, causal estimate, mechanism test, prediction, measurement validation, or theory synthesis.
 - Feasible data: named databases, public filings, proprietary data, hand-collected data, text data, interviews, surveys, or experiments.
-- Target output: idea memo, literature review, empirical design, code plan, paper section, presentation, referee report, or revision letter.
+- Target output: idea memo, literature review, empirical design, data plan, code plan, paper section, or manuscript revision.
 
 If core facts are missing, make conservative assumptions and label them. Ask only when the missing information would materially change the design.
 
@@ -61,9 +87,9 @@ Produce a compact research memo with:
 
 Create a literature matrix with columns for paper, setting, research question, theory, data, identification, main finding, limitation, and implication for the user's project.
 
-Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, citation strategy, gap analysis, or OpenAlex-based preliminary search.
+Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, literature-use strategy, gap analysis, or OpenAlex-based preliminary search.
 
-Read `references/zotero-literature-workflow.md` when the user asks to search Google Scholar or CNKI through Chrome, download literature, import records into Zotero, export BibTeX/RIS, or work with PDFs and citation metadata.
+Use Zotero, not this skill, when the user asks to download literature, import records, export BibTeX/RIS, work with PDFs, manage collections, or maintain citation metadata. This skill may define what literature is needed and how it supports the research question, but Zotero owns the reference-management operations.
 
 Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. Prefer journal pages, SSRN, NBER, institutional repositories, and publisher pages over secondary summaries.
 
@@ -104,7 +130,18 @@ For data plans, specify:
 - Sample filters and the reason for each filter.
 - Reproducibility notes: raw-data manifest, code order, logs, and output checks.
 
+### Code Planning
+
+For code plans:
+
+- Prefer Stata for archival empirical accounting regressions, fixed effects, clustered standard errors, tables, logs, and sample-count diagnostics.
+- Use Python only when it is better suited for text analysis, parsing, file processing, machine learning, or automation around data preparation.
+- Specify script order, file responsibilities, required inputs, expected outputs, and validation checks.
+- Do not write final code around unverified database fields, unavailable proprietary data, or undefined variable formulas.
+
 ### Writing and Revision
+
+Read `references/writing-workflow.md` when the user asks for abstracts, introductions, theory sections, hypotheses, research-design prose, result narratives, contribution framing, or revision of manuscript text.
 
 For manuscript work:
 
@@ -112,13 +149,7 @@ For manuscript work:
 - Keep the introduction's logic in this order: phenomenon, tension, why accounting matters, design, findings, contribution.
 - Distinguish statistical results from economic magnitudes and interpretation.
 - Preserve the author's claims if defensible; weaken claims when the design does not support them.
-
-For reviewer responses:
-
-- Start with the concern in neutral language.
-- State the revision or new test.
-- Explain the result and manuscript location.
-- Acknowledge limitations without over-conceding.
+- Do not turn writing tasks into journal submission strategy, reviewer response, PPT planning, or generic Nature/CNS prose.
 
 ## Output Standards
 
@@ -126,13 +157,15 @@ For reviewer responses:
 - Use Chinese for planning discussion when the user writes in Chinese.
 - Prefer structured tables for research design, literature mapping, and variable dictionaries.
 - Include assumptions and caveats when evidence is incomplete.
-- Do not invent citations, paper results, sample sizes, journal placements, or database fields. Verify unstable publication facts with current sources.
+- Do not invent citations, paper results, sample sizes, journal placements, database fields, regression results, variable values, or manuscript changes. Verify unstable publication facts with current sources.
 - Flag ethical issues: p-hacking, undisclosed sample selection, HARKing, unavailable proprietary data, weak identification, and unsupported causal claims.
+- Separate correlation, mechanism evidence, and causal identification. Use causal wording only when the design and assumptions support it.
+- Mark unverified literature, data fields, and empirical claims explicitly rather than smoothing over uncertainty.
 
 ## Reference Files
 
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
 - `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
-- `references/zotero-literature-workflow.md`: semi-automated OpenAlex/Google Scholar/CNKI to Zotero workflow and compliance limits.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.
+- `references/writing-workflow.md`: accounting and finance manuscript section writing workflow.
