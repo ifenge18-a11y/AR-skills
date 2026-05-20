@@ -23,10 +23,10 @@
 默认角色包括：
 
 - Boss：负责研究计划、方向判断、批判审查和角色协调。
-- Literature Reviewer：负责中英文文献检索、文献矩阵和真实性核验，严禁虚构文献。
+- Literature Reviewer：使用 OpenAlex 初筛英文文献，使用 Chrome 检索 Google Scholar 最新英文文献和 CNKI 中文文献，并负责文献矩阵与真实性核验。
 - Theory Analyst：负责机制提炼、竞争解释、边界条件和假设构建。
 - Empirical Designer：负责样本、变量、模型和完整检验体系设计。
-- Programmer：负责 Stata 回归方案，必要时使用 Python 进行文本分析。
+- Research Coder：负责将实证设计转化为 Stata/Python 可复现分析流程。
 - Writer：负责整合各角色结果并形成论文式文本。
 
 Boss 默认采用阶段式并行：先启动文献综述角色，在初步文献结果稳定后并行推进理论分析和实证设计，再依次进入程序实现和写作整合。Boss 最后必须指出各角色输出中的逻辑漏洞、识别风险、文献缺口和写作问题。
@@ -52,9 +52,11 @@ Boss 默认采用阶段式并行：先启动文献综述角色，在初步文献
 - 《金融研究》
 - 《中国工业经济》
 
-当用户要求检索 Google Scholar 或知网并导入 Zotero 时，Skill 会优先采用 Browser/Chrome 辅助检索、筛选和导出题录，再使用 Zotero 插件导入 BibTeX/RIS、同步引用信息或读取本地已有全文。
+当用户要求检索文献并导入 Zotero 时，Skill 会先用 OpenAlex 初步发现英文候选文献；对最新英文文献，使用 Chrome 辅助检索 Google Scholar；对中文文献，使用 Chrome 辅助检索 CNKI。筛选和导出题录后，再使用 Zotero 插件导入 BibTeX/RIS、同步引用信息或读取本地已有全文。
 
-该流程不会绕过验证码、付费墙、机构权限或网站反自动化限制。下载 PDF 或写入 Zotero 前，应确认用户具有访问权限，并确认导入记录和目标 collection。
+导入 Zotero 时，Skill 会以研究项目名建立或使用同名 collection，并在其下按 `English` 和 `Chinese` 建立子 collection。若文献脉络较复杂，可在中英文子分类下继续按理论脉络、机制、构念、方法或制度场景建立更细的子分类。
+
+该流程不会绕过验证码、付费墙、机构权限或网站反自动化限制。遇到账号登录、验证码或权限确认时，会提醒用户手动处理。下载 PDF 或写入 Zotero 前，应确认用户具有访问权限，并确认导入记录和目标 collection。
 
 ## 输出特点
 

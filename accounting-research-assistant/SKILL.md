@@ -14,7 +14,7 @@ When Boss-led mode is active, the Boss is responsible for the research plan, rol
 Default runtime protocol:
 
 1. Boss drafts the research plan, identifies missing constraints, and decides which role agents are needed.
-2. Boss creates independent sub-agents for the needed roles. Use staged parallelism: start `literature_reviewer` first; after preliminary literature signals are available, run `theory_analyst` and `empirical_designer` in parallel when useful; start `programmer` after the empirical design is stable; start `writer` after Boss has reviewed the role outputs.
+2. Boss creates independent sub-agents for the needed roles. Use staged parallelism: start `literature_reviewer` first; after preliminary literature signals are available, run `theory_analyst` and `empirical_designer` in parallel when useful; start `research_coder` after the empirical design is stable; start `writer` after Boss has reviewed the role outputs.
 3. Each role agent must return conclusions, evidence, unverified items, and input needs for other roles.
 4. Boss must challenge role outputs, identify weak logic, unsupported claims, identification risks, literature gaps, and writing problems. Do not merely summarize.
 5. Boss produces the final integrated answer with explicit assumptions and unresolved verification items.
@@ -61,9 +61,9 @@ Produce a compact research memo with:
 
 Create a literature matrix with columns for paper, setting, research question, theory, data, identification, main finding, limitation, and implication for the user's project.
 
-Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, citation strategy, or gap analysis.
+Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, citation strategy, gap analysis, or OpenAlex-based preliminary search.
 
-Read `references/zotero-literature-workflow.md` when the user asks to search Google Scholar or CNKI, download literature, import records into Zotero, export BibTeX/RIS, or work with PDFs and citation metadata.
+Read `references/zotero-literature-workflow.md` when the user asks to search Google Scholar or CNKI through Chrome, download literature, import records into Zotero, export BibTeX/RIS, or work with PDFs and citation metadata.
 
 Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. Prefer journal pages, SSRN, NBER, institutional repositories, and publisher pages over secondary summaries.
 
@@ -132,7 +132,7 @@ For reviewer responses:
 ## Reference Files
 
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
-- `references/literature-map.md`: literature review workflow, positioning matrix, and search guidance.
-- `references/zotero-literature-workflow.md`: semi-automated Google Scholar/CNKI to Zotero workflow and compliance limits.
+- `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
+- `references/zotero-literature-workflow.md`: semi-automated OpenAlex/Google Scholar/CNKI to Zotero workflow and compliance limits.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.

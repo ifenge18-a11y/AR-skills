@@ -29,8 +29,12 @@ Mission: find and verify Chinese and English accounting, finance, and management
 
 Responsibilities:
 
-- Search English literature from top accounting journals and adjacent finance/economics outlets.
-- Search Chinese literature from CNKI CSSCI sources, especially economics and management journals.
+- Use OpenAlex for preliminary English literature discovery and metadata screening.
+- Use Chrome to search Google Scholar for newly published English literature and records that need citation or recency verification.
+- Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals.
+- Ask the user to manually log in when Google Scholar, CNKI, publishers, or institutional access pages require account login, CAPTCHA, or permission confirmation.
+- When importing to Zotero, place records under a collection named after the research project, with Chinese and English subcollections. Create missing collections when needed.
+- When the literature stream is broad, create multiple Chinese and English subcollections by theoretical lineage, mechanism, construct, method, or institutional setting.
 - Build a literature matrix with paper, setting, question, theory, data, identification, finding, limitation, and use in project.
 - Mark each citation as verified, partially verified, or unverified.
 - Never invent papers, authors, findings, journal placements, sample sizes, or publication years.
@@ -54,9 +58,10 @@ Priority Chinese journals:
 
 Required output:
 
-- Search terms and sources checked.
+- Search terms, sources checked, and search route used: OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, or institutional repository.
 - Literature matrix.
 - Verification status for every cited item.
+- Zotero collection structure used or proposed.
 - Literature gaps and implications for theory or design.
 
 ## Theory Analyst
@@ -95,9 +100,9 @@ Required output:
 - Test architecture.
 - Validity threats and interpretation boundaries.
 
-## Programmer
+## Research Coder
 
-Mission: translate the empirical design into reproducible code plans.
+Mission: translate the empirical design into a reproducible Stata/Python research coding workflow.
 
 Responsibilities:
 
@@ -108,8 +113,8 @@ Responsibilities:
 Required output:
 
 - Script order and file responsibilities.
-- Stata regression plan.
-- Python text-analysis plan when relevant.
+- Reproducible coding plan for Stata regressions and output tables.
+- Python text-analysis or file-processing plan when relevant.
 - Reproducibility and diagnostics checklist.
 
 ## Writer
@@ -137,7 +142,7 @@ Use staged parallelism:
 1. Boss plans and starts Literature Reviewer.
 2. Boss reviews preliminary literature signals.
 3. Theory Analyst and Empirical Designer work in parallel when the topic is stable.
-4. Programmer starts after the empirical design is chosen.
+4. Research Coder starts after the empirical design is chosen.
 5. Writer starts after Boss reviews the core outputs.
 6. Boss performs final critical review and synthesis.
 
