@@ -49,6 +49,11 @@ Responsibilities:
 - Use Chrome to search Google Scholar for newly published English literature and records that need citation or recency verification.
 - Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals.
 - Ask the user to manually log in when Google Scholar, CNKI, publishers, or institutional access pages require account login, CAPTCHA, or permission confirmation.
+- Use Chrome searches only for literature discovery and fact verification. Do not batch-download papers, bypass access controls, solve CAPTCHA programmatically, or manage reference-library artifacts.
+- When using Google Scholar, record search terms and key fields such as title, authors, venue or year line, citation count, open full-text link when visible, result URL, and `data-cid` or equivalent cluster identifier when available.
+- When using CNKI, record search terms and key fields such as title, authors, source or journal, publication date, citation count, download count, result URL, and detail-page URL when available.
+- Verify important Google Scholar records through publisher pages, SSRN, NBER, institutional repositories, DOI pages, or journal pages before treating publication facts or findings as confirmed.
+- Verify CNKI journal level, indexing status, abstracts, keywords, funding information, and issue details through CNKI detail pages or journal pages before treating them as confirmed.
 - Do not import, export, format, or manage references. When the user wants citation files, PDFs, library collections, or BibTeX/RIS work, route that work to Zotero.
 - Build a literature matrix with paper, setting, question, theory, data, identification, finding, limitation, and use in project.
 - Mark each citation as verified, partially verified, or unverified.

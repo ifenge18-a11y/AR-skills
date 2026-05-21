@@ -55,6 +55,26 @@ Priority Chinese sources: CNKI CSSCI journals, especially economics and manageme
 
 Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If a record cannot be verified from a reliable source, label it as unverified or partially verified instead of citing it as fact.
 
+## Chrome Search Procedures
+
+Use Chrome searches as auditable discovery and verification steps, not as reference-management operations. Do not download paywalled papers, bypass access controls, solve CAPTCHA programmatically, or manage BibTeX/RIS/PDF files inside this skill.
+
+For Google Scholar:
+
+- Build searches from the research construct, synonyms, author names, journal names, exact phrases, and year ranges. Use focused searches before broad searches when the topic is mature.
+- Extract and record the title, authors, source or venue-year line, citation count, open full-text link when visible, result URL, and Google Scholar `data-cid` or equivalent cluster identifier when available.
+- Use Google Scholar mainly for recent or online-first papers, working papers, citation trails, and records that need recency or citation-count checks beyond OpenAlex.
+- Follow promising records to publisher pages, SSRN, NBER, institutional repositories, DOI pages, or journal pages before marking publication facts or findings as verified.
+- If Google Scholar shows CAPTCHA, unusual-traffic warnings, login requirements, or access prompts, stop and ask the user to complete the browser step manually before continuing.
+
+For CNKI:
+
+- Use ordinary keyword search for broad discovery and advanced search when author, title, journal, year range, source category, CSSCI, 北大核心, or other filters matter.
+- Prioritize CSSCI, 北大核心, and accounting, finance, management, and economics journals; give special attention to the priority Chinese journals listed above.
+- Extract and record the title, authors, source or journal, publication date, citation count, download count, result URL, and detail-page URL when available.
+- Treat journal level, indexing status, abstracts, keywords, funding information, publication status, and issue details as verified only after checking a CNKI detail page or journal page.
+- If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to handle the browser step manually. Do not attempt to bypass permissions or automate downloads.
+
 ## Verification Labels
 
 Use exactly one label for each record:
