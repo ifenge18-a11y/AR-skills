@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v0.1.1`
+Current version: `v0.1.2`
 
-当前版本：`v0.1.1`
+当前版本：`v0.1.2`
 
 ## Overview / 概览
 
@@ -16,7 +16,21 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。
 
-## What's New in v0.1.1 / 当前版本改动
+## What's New in v0.1.2 / 当前版本改动
+
+- Added a project-topic Zotero handoff model for Literature Reviewer outputs.
+- Defined the default Zotero collection structure for research projects, including `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`.
+- Added a standard tag vocabulary for verification status, literature role, discovery source, and follow-up actions.
+- Expanded the Literature Reviewer handoff contract to include suggested collection, tags, and Zotero actions while keeping actual library operations in Zotero.
+
+中文说明：
+
+- 增加 Literature Reviewer 输出到 Zotero 的“项目-主题型”交接模型。
+- 明确研究项目默认 Zotero collection 结构，包括 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data` 和 `90_Excluded_WeakFit`。
+- 增加核验状态、文献作用、发现来源和后续动作的标准 tag 体系。
+- 扩展 Literature Reviewer 的交接要求：输出建议 collection、tags 和 Zotero actions，但实际文献库操作仍由 Zotero 完成。
+
+## What's New in v0.1.1 / 历史版本改动
 
 - Added a single integrated research-assistant skill for accounting, finance, and financial management research.
 - Built structured workflows for topic development, literature mapping, theory and hypotheses, empirical design, data planning, code planning, and manuscript writing.
@@ -81,6 +95,10 @@ Recommended routes:
 When access prompts, login requirements, CAPTCHA, or permission checks appear, the workflow should pause and ask the user to handle them manually.
 
 遇到登录、验证码、权限确认或访问限制时，工作流应暂停，并由用户手动处理。
+
+When a Literature Reviewer result needs to be imported into Zotero, use the project-topic handoff model: one root collection per research project, fixed child collections such as `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`, plus tags for verification status, project role, source, and follow-up action. Zotero performs the actual import, cleanup, PDF attachment, duplicate handling, and collection operations.
+
+当 Literature Reviewer 的结果需要导入 Zotero 时，采用“项目-主题型”交接：每个研究项目一个根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源和后续动作。实际导入、清洗、PDF 附件、重复项处理和 collection 操作仍由 Zotero 完成。
 
 ## Boss-Led Multi-Agent Mode / Boss-Led 多 Agent 模式
 

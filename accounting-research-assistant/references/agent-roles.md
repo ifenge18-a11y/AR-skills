@@ -55,6 +55,7 @@ Responsibilities:
 - Verify important Google Scholar records through publisher pages, SSRN, NBER, institutional repositories, DOI pages, or journal pages before treating publication facts or findings as confirmed.
 - Verify CNKI journal level, indexing status, abstracts, keywords, funding information, and issue details through CNKI detail pages or journal pages before treating them as confirmed.
 - Do not import, export, format, or manage references. When the user wants citation files, PDFs, library collections, or BibTeX/RIS work, route that work to Zotero.
+- When Zotero import or archiving is needed, provide a project-topic handoff instead of doing the library operation: project root collection, suggested child collection, verification tag, role tag, source tag, and follow-up action tag. Use `references/zotero-literature-workflow.md` for the fixed collection and tag vocabulary.
 - Build a literature matrix with paper, setting, question, theory, data, identification, finding, limitation, and use in project.
 - Mark each citation as verified, partially verified, or unverified.
 - Never invent papers, authors, findings, journal placements, sample sizes, or publication years.
@@ -82,7 +83,7 @@ Required output:
 - Literature matrix.
 - Verification status for every cited item.
 - Literature gaps and implications for theory or design.
-- Reference-management handoff note if Zotero work is needed.
+- Reference-management handoff note if Zotero work is needed, including suggested collection and tags when records should be imported or archived.
 
 ## Theory Analyst
 

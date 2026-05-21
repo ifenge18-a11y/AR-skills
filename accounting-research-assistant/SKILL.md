@@ -1,6 +1,6 @@
 ---
 name: accounting-research-assistant
-version: 0.1.1
+version: 0.1.2
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 ---
 
@@ -91,6 +91,8 @@ Read `references/literature-map.md` when the user asks for a literature review, 
 
 Use Zotero, not this skill, when the user asks to download literature, import records, export BibTeX/RIS, work with PDFs, manage collections, or maintain citation metadata. This skill may define what literature is needed and how it supports the research question, but Zotero owns the reference-management operations.
 
+When literature needs to be handed off for Zotero import or archiving, use the project-topic workflow in `references/zotero-literature-workflow.md`: one project root collection, fixed child collections, cross-cutting tags, and a handoff table that states why the record matters, verification status, suggested collection, suggested tags, and suggested Zotero action.
+
 Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. Prefer journal pages, SSRN, NBER, institutional repositories, and publisher pages over secondary summaries.
 
 ### Theory and Hypotheses
@@ -166,6 +168,7 @@ For manuscript work:
 
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
 - `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
+- `references/zotero-literature-workflow.md`: project-topic Zotero handoff model, collection structure, tag vocabulary, and import/cleanup acceptance criteria.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.
 - `references/writing-workflow.md`: accounting and finance manuscript section writing workflow.
