@@ -1,6 +1,6 @@
 ---
 name: accounting-research-assistant
-version: 0.1.2
+version: 0.1.3
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 ---
 
@@ -85,7 +85,7 @@ Produce a compact research memo with:
 
 ### Literature Mapping
 
-Create a literature matrix with columns for paper, setting, research question, theory, data, identification, main finding, limitation, and implication for the user's project.
+Create staged literature evidence packets. During topic discussion, use screening granularity with fields for paper, verification, research problem, setting, constructs, main finding, relevance to topic, use in project, and deep-read priority. After the topic is settled, upgrade only theory-core and empirical-core records to deep-read granularity with fields for mechanism chain, competing explanations, boundary conditions, data and sample, variables, identification strategy, empirical tests, limitations, and implications for the user's project.
 
 Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, literature-use strategy, gap analysis, or OpenAlex-based preliminary search.
 

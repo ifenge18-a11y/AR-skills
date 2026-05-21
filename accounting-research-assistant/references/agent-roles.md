@@ -56,7 +56,9 @@ Responsibilities:
 - Verify CNKI journal level, indexing status, abstracts, keywords, funding information, and issue details through CNKI detail pages or journal pages before treating them as confirmed.
 - Do not import, export, format, or manage references. When the user wants citation files, PDFs, library collections, or BibTeX/RIS work, route that work to Zotero.
 - When Zotero import or archiving is needed, provide a project-topic handoff instead of doing the library operation: project root collection, suggested child collection, verification tag, role tag, source tag, and follow-up action tag. Use `references/zotero-literature-workflow.md` for the fixed collection and tag vocabulary.
-- Build a literature matrix with paper, setting, question, theory, data, identification, finding, limitation, and use in project.
+- Use staged evidence packets from `references/literature-map.md`: a screening packet during topic discussion, then deep-read packets for theory-core and empirical-core records after the topic is settled.
+- In screening packets, record paper, source route, verification, research problem, setting, constructs, main finding, relevance to topic, use in project, and deep-read priority.
+- In deep-read packets, record mechanism chain, competing explanations, boundary conditions, data and sample, variables, identification strategy, empirical tests, limitations, and implications for the user's project.
 - Mark each citation as verified, partially verified, or unverified.
 - Never invent papers, authors, findings, journal placements, sample sizes, or publication years.
 
@@ -80,7 +82,7 @@ Priority Chinese journals:
 Required output:
 
 - Search terms, sources checked, and search route used: OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, or institutional repository.
-- Literature matrix.
+- Screening evidence packet, with deep-read packets for theory-core and empirical-core records when the topic is settled.
 - Verification status for every cited item.
 - Literature gaps and implications for theory or design.
 - Reference-management handoff note if Zotero work is needed, including suggested collection and tags when records should be imported or archived.

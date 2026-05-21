@@ -9,7 +9,7 @@
 ## Main Skill
 
 - Skill name: `accounting-research-assistant`
-- Version: `v0.1.2`
+- Version: `v0.1.3`
 - Primary audience: accounting, finance, financial management, audit, disclosure, governance, ESG, capital markets, and China A-share empirical researchers.
 
 ## What It Helps With

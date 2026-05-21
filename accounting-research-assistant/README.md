@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v0.1.2`
+Current version: `v0.1.3`
 
-当前版本：`v0.1.2`
+当前版本：`v0.1.3`
 
 ## Overview / 概览
 
@@ -16,7 +16,21 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。
 
-## What's New in v0.1.2 / 当前版本改动
+## What's New in v0.1.3 / 当前版本改动
+
+- Added staged Literature Reviewer evidence packets for topic screening and post-topic deep reading.
+- Added screening-packet fields for paper, verification, research problem, setting, constructs, main finding, relevance to topic, project use, and deep-read priority.
+- Added deep-read-packet fields for mechanism chain, competing explanations, boundary conditions, data and sample, variables, identification strategy, empirical tests, limitations, and project implications.
+- Clarified how Boss, Theory Analyst, and Empirical Designer read different fields from the same Literature Reviewer information package.
+
+中文说明：
+
+- 增加 Literature Reviewer 分阶段文献信息包，用于选题筛选和选题确定后的核心文献精读。
+- 增加筛选信息包字段：题录、核验状态、研究问题、设定、核心构念、主要发现、与选题关系、项目用途和精读优先级。
+- 增加精读信息包字段：机制链条、竞争解释、边界条件、数据和样本、变量、识别策略、实证检验、局限和对本项目的启发。
+- 明确 Boss、Theory Analyst 和 Empirical Designer 如何从同一套 Literature Reviewer 信息包中读取所需字段。
+
+## What's New in v0.1.2 / 历史版本改动
 
 - Added a project-topic Zotero handoff model for Literature Reviewer outputs.
 - Defined the default Zotero collection structure for research projects, including `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`.
@@ -77,6 +91,10 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 The skill treats literature search as research discovery and verification, not as citation-library management.
 
 该 Skill 将文献检索视为研究发现和事实核验，而不是引用库管理。
+
+Literature Reviewer uses staged evidence packets. During topic discussion, it uses screening granularity to record each paper's verification status, research problem, setting, constructs, main finding, relevance to the topic, project use, and deep-read priority. After the topic is settled, theory-core and empirical-core papers are upgraded to deep-read granularity for mechanisms, competing explanations, boundary conditions, data, variables, identification, tests, limitations, and project implications.
+
+Literature Reviewer 使用分阶段信息包。选题讨论阶段采用筛选粒度，记录每篇文献的核验状态、研究问题、设定、核心构念、主要发现、与选题的关系、项目用途和精读优先级。选题确定后，对理论核心和实证核心文献升级为精读粒度，提取机制链条、竞争解释、边界条件、数据、变量、识别、检验、局限和对本项目的启发。
 
 Recommended routes:
 

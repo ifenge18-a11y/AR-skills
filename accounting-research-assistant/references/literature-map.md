@@ -85,18 +85,58 @@ Use exactly one label for each record:
 
 Never use unverified records as decisive support for a contribution, theory claim, or design precedent. They can be listed as candidates for follow-up.
 
-## Literature Matrix
+## Staged Evidence Packets
+
+Use staged evidence packets instead of treating every paper at the same level of detail. The default unit is a per-paper record that can be read by the Boss, Theory Analyst, and Empirical Designer.
+
+### Screening Packet
+
+Use screening granularity while the topic is still being discussed. The purpose is broad, low-cost triage: decide whether a record matters, how credible it is, which constructs it touches, and whether it deserves deep reading.
 
 Use this table structure:
 
-| Paper | Source route | Verification | Setting | Question | Theory | Data | Identification | Main finding | Limitation | Use in project |
-|---|---|---|---|---|---|---|---|---|---|---|
+| Paper | Source route | Verification | Research problem | Setting | Constructs | Main finding | Relevance to topic | Use in project | Deep-read priority |
+|---|---|---|---|---|---|---|---|---|---|
 
-Keep the "Use in project" column explicit: background, contrast, mechanism support, measurement precedent, design precedent, or contribution boundary.
+Field rules:
 
-Use "Source route" to show where the record came from, such as OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, or institutional repository. Use "Verification" to mark verified, partially verified, or unverified.
+- `Paper`: title, authors, year, and source or venue when known.
+- `Source route`: OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, institutional repository, DOI page, or journal page.
+- `Verification`: use `verified`, `partially verified`, or `unverified`.
+- `Research problem`: the paper's actual research question, not a generic topic label.
+- `Setting`: institutional setting, sample context, country or market, industry, and unit of analysis when known.
+- `Constructs`: core constructs, concepts, variables, or mechanisms touched by the paper.
+- `Main finding`: the main result, tied to setting and evidence; do not generalize beyond what is verified.
+- `Relevance to topic`: why this paper matters or does not matter for the user's current topic.
+- `Use in project`: choose precise roles such as background, contrast, mechanism support, measurement precedent, identification precedent, institutional setting, contribution boundary, unresolved competing evidence, or weak fit.
+- `Deep-read priority`: `theory core`, `empirical core`, `both theory and empirical core`, `background only`, or `no deep read`.
 
-For "Use in project", choose precise roles such as background, contrast, mechanism support, measurement precedent, identification precedent, institutional setting, contribution boundary, or unresolved competing evidence.
+### Deep-Read Packet
+
+After the topic is settled, upgrade only theory-core and empirical-core records to deep-read granularity. Do not deep-read every background paper.
+
+Use this extended structure for upgraded records:
+
+| Paper | Mechanism chain | Competing explanations | Boundary conditions | Data and sample | Variables | Identification strategy | Empirical tests | Limitations | Implications for our project |
+|---|---|---|---|---|---|---|---|---|---|
+
+Deep-read fields must stay project-facing:
+
+- `Mechanism chain`: how constructs connect into a causal or interpretive logic.
+- `Competing explanations`: alternative mechanisms that could produce similar findings.
+- `Boundary conditions`: where the theory or evidence should be stronger, weaker, or not travel.
+- `Data and sample`: data sources, sample period, unit of analysis, and important filters when verified.
+- `Variables`: key dependent variables, independent variables, moderators, mediators, or measurement choices.
+- `Identification strategy`: research design, fixed effects, instruments, DiD/event design, matching, discontinuity, or other identification logic when present.
+- `Empirical tests`: main tests, mechanism tests, heterogeneity tests, robustness tests, or falsification tests that may inform the user's design.
+- `Limitations`: theoretical, measurement, setting, sample, identification, or external-validity limits.
+- `Implications for our project`: what to borrow, avoid, challenge, extend, or verify before using.
+
+### Role Consumption
+
+- Boss reads the screening packet first: `verification`, `setting`, `constructs`, `main finding`, `relevance to topic`, `use in project`, and `deep-read priority` to judge topic value, core constructs, contribution boundary, and reading priorities.
+- Theory Analyst reads screening `constructs` first, then deep-read `mechanism chain`, `competing explanations`, `boundary conditions`, and `limitations` to build mechanisms, hypotheses, and observable predictions.
+- Empirical Designer reads screening `constructs` and `setting` first, then deep-read `data and sample`, `variables`, `identification strategy`, `empirical tests`, and `limitations` to design sample, variables, model, validity checks, mechanism tests, and robustness tests.
 
 ## Gap Assessment
 
