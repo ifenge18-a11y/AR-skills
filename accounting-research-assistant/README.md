@@ -115,16 +115,16 @@ Literature Reviewer 使用分阶段信息包。选题讨论阶段采用筛选粒
 Recommended routes:
 
 - OpenAlex for preliminary English literature discovery and metadata screening.
-- Google Scholar for recent papers, working papers, citation trails, and recency checks.
-- CNKI for Chinese literature, especially CSSCI and core accounting, finance, management, and economics journals.
-- Publisher pages, SSRN, NBER, institutional repositories, DOI pages, journal pages, and CNKI detail pages for verification.
+- Google Scholar for English record verification after OpenAlex screening, including visible publication metadata, citation signals, and recency checks.
+- CNKI for Chinese literature, especially CSSCI and core accounting, finance, management, and economics journals; CNKI records do not require extra verification.
+- Working papers, SSRN, NBER, publisher pages, institutional repositories, DOI pages, and journal pages only when the user explicitly asks for working-paper coverage or deeper verification.
 
 推荐路线：
 
 - OpenAlex：用于英文文献初筛和元数据发现。
-- Google Scholar：用于最新英文文献、working paper、引用链和时效性检查。
-- CNKI：用于中文文献，尤其是 CSSCI 和会计、金融、管理、经济类核心期刊。
-- 出版商页面、SSRN、NBER、机构库、DOI 页面、期刊页面和 CNKI 详情页：用于文献信息核验。
+- Google Scholar：用于 OpenAlex 初筛后的英文记录核验，包括可见发表信息、引用信号和时效性检查。
+- CNKI：用于中文文献，尤其是 CSSCI 和会计、金融、管理、经济类核心期刊；CNKI 记录无需额外核验。
+- 工作论文、SSRN、NBER、出版商页面、机构库、DOI 页面和期刊页面：仅在用户明确要求工作论文覆盖或深度核验时使用。
 
 When access prompts, login requirements, CAPTCHA, or permission checks appear, the workflow should pause and ask the user to handle them manually.
 
