@@ -1,7 +1,8 @@
 ---
 name: accounting-research-assistant
-version: 0.1.3
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
+metadata:
+  version: "0.1.4"
 ---
 
 # Accounting Research Assistant
@@ -38,11 +39,22 @@ When Boss-led mode is active, the Boss is responsible for the research plan, rol
 
 Default runtime protocol:
 
-1. Boss drafts the research plan, identifies missing constraints, and decides which role agents are needed.
-2. Boss creates independent sub-agents for the needed roles. Use staged parallelism: start `literature_reviewer` first; after preliminary literature signals are available, run `theory_analyst` and `empirical_designer` in parallel when useful; start `research_coder` after the empirical design is stable; start `writer` after Boss has reviewed the role outputs.
-3. Each role agent must return conclusions, evidence, unverified items, and input needs for other roles.
-4. Boss must challenge role outputs, identify weak logic, unsupported claims, identification risks, literature gaps, and writing problems. Do not merely summarize.
-5. Boss produces the final integrated answer with explicit assumptions and unresolved verification items.
+1. Boss drafts the research plan, identifies missing constraints, defines success criteria, and decides which role agents are needed.
+2. Start `literature_reviewer` first. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
+3. Boss applies the literature screening gate and returns `PROCEED`, `REFINE`, or `PIVOT`.
+4. Start one `theory_analyst` subagent after the topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
+5. Boss applies the theory mechanism gate, then starts `empirical_designer` when the mechanisms and hypotheses are usable.
+6. Boss applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
+7. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
+8. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
+
+At every gate, Boss must choose one of:
+
+- `PROCEED`: continue to the next role or stage.
+- `REFINE`: revise the current stage before continuing.
+- `PIVOT`: adjust the research question, framing, setting, or design direction.
+
+Boss must challenge weak logic, unsupported claims, identification risks, missing literature, unavailable data, mechanism gaps, contribution overclaiming, and writing that is fluent but not evidence-grounded.
 
 ## Core Workflow
 
@@ -93,7 +105,13 @@ Use Zotero, not this skill, when the user asks to download literature, import re
 
 When literature needs to be handed off for Zotero import or archiving, use the project-topic workflow in `references/zotero-literature-workflow.md`: one project root collection, fixed child collections, cross-cutting tags, and a handoff table that states why the record matters, verification status, suggested collection, suggested tags, and suggested Zotero action.
 
-Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. Prefer journal pages, SSRN, NBER, institutional repositories, and publisher pages over secondary summaries.
+Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. For English literature, default to Google Scholar verification after OpenAlex screening. Use journal pages, SSRN, NBER, institutional repositories, publisher pages, or other deeper sources only when the user explicitly asks for deeper verification, working papers, or unpublished/latest working-paper evidence.
+
+Default literature source policy:
+
+- English literature: use OpenAlex for preliminary discovery and Google Scholar for verification.
+- Chinese literature: use CNKI only; CNKI records do not require extra verification.
+- Working papers: do not search by default. Include working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for them.
 
 ### Theory and Hypotheses
 
@@ -103,6 +121,12 @@ Draft hypotheses by separating:
 - Boundary condition: when the effect should be stronger or weaker.
 - Alternative explanation: what else could produce the same pattern.
 - Observable implication: what coefficient, heterogeneity, or cross-sectional pattern should appear.
+
+When operating as the Theory Analyst in Boss-led mode, use one subagent with three internal perspectives:
+
+- Mechanism supporter: explain why the proposed mechanism should hold.
+- Identification skeptic: identify competing explanations and what empirical evidence would distinguish them.
+- Institutional-context reviewer: check whether the logic is grounded in accounting, auditing, disclosure, governance, tax, contracting, or capital-market institutions.
 
 Avoid hypotheses that merely restate the regression sign. Tie the prediction to accounting institutions, reporting incentives, assurance, governance, contracts, tax rules, disclosure channels, or capital market information processing.
 

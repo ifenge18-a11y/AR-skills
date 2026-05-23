@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v0.1.3`
+Current version: `v0.1.4`
 
-当前版本：`v0.1.3`
+当前版本：`v0.1.4`
 
 ## Overview / 概览
 
@@ -16,7 +16,23 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。
 
-## What's New in v0.1.3 / 当前版本改动
+## What's New in v0.1.4 / 当前版本改动
+
+- Upgraded Boss-led mode into a stage-gated collaboration workflow with literature screening, theory mechanism, research design, and writing quality gates.
+- Added explicit Boss gate decisions: `PROCEED`, `REFINE`, and `PIVOT`.
+- Updated the Literature Reviewer source policy: English literature uses OpenAlex for preliminary screening and Google Scholar for verification; Chinese literature uses CNKI only; working papers are searched only when explicitly requested.
+- Kept Theory Analyst as one subagent while adding three internal perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer.
+- Tightened Research Coder and Writer start conditions so coding and writing begin only after Boss review of the relevant upstream outputs.
+
+中文说明：
+
+- 将 Boss-led 模式升级为“阶段门禁 + 角色协作”流程，包含文献筛选、理论机制、研究设计和写作质量四类门禁。
+- 增加 Boss 门禁结论：`PROCEED`、`REFINE` 和 `PIVOT`。
+- 更新 Literature Reviewer 文献来源规则：英文文献使用 OpenAlex 初筛、Google Scholar 核验；中文文献仅使用 CNKI；工作论文仅在用户明确要求时检索。
+- 保持 Theory Analyst 为单一 subAgent，同时加入机制支持者、识别怀疑者和制度背景审查者三种内部视角。
+- 收紧 Research Coder 和 Writer 启动条件，确保代码规划和写作在 Boss 审查上游输出后进行。
+
+## What's New in v0.1.3 / 历史版本改动
 
 - Added staged Literature Reviewer evidence packets for topic screening and post-topic deep reading.
 - Added screening-packet fields for paper, verification, research problem, setting, constructs, main finding, relevance to topic, project use, and deep-read priority.

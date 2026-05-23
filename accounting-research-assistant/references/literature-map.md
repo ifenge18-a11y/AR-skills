@@ -37,9 +37,9 @@ Prefer seed papers from top accounting journals and adjacent finance/economics j
 Use this order for literature discovery:
 
 1. OpenAlex preliminary search: use OpenAlex to identify candidate English works, authors, venues, years, DOI metadata, citation links, and related concepts. Treat OpenAlex as a discovery and metadata source, not final proof of publication facts.
-2. Google Scholar latest-English check: use Chrome to search Google Scholar for newly published or online-first English papers, working papers, and citation trails that may not be fully reflected in OpenAlex. If Google Scholar asks for login, CAPTCHA, or unusual traffic confirmation, stop and ask the user to complete it manually.
-3. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
-4. Source verification: verify important records through publisher pages, SSRN, NBER, institutional repositories, journal pages, or CNKI detail pages before treating them as confirmed citations.
+2. Google Scholar English verification: use Chrome to search Google Scholar to verify English records that came from OpenAlex or are otherwise used as core evidence. Record visible metadata and citation signals. If Google Scholar asks for login, CAPTCHA, or unusual traffic confirmation, stop and ask the user to complete it manually.
+3. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. CNKI records do not require extra verification beyond the CNKI search record. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
+4. Working-paper search: skip by default. Search SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for working papers or deeper working-paper coverage.
 
 For OpenAlex, search by title keywords, construct synonyms, author names, venue names, publication years, and DOI when available. Record the OpenAlex work URL or DOI when available.
 
@@ -53,7 +53,7 @@ Priority English accounting journals:
 
 Priority Chinese sources: CNKI CSSCI journals, especially economics and management journals such as Economic Research Journal, Management World, Accounting Research, Management Review, Journal of Financial Research, and China Industrial Economics.
 
-Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If a record cannot be verified from a reliable source, label it as unverified or partially verified instead of citing it as fact.
+Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If an English record cannot be verified through Google Scholar, label it as unverified or partially verified instead of citing it as fact. Treat Chinese CNKI records as CNKI search records without requiring separate verification.
 
 ## Chrome Search Procedures
 
@@ -63,8 +63,8 @@ For Google Scholar:
 
 - Build searches from the research construct, synonyms, author names, journal names, exact phrases, and year ranges. Use focused searches before broad searches when the topic is mature.
 - Extract and record the title, authors, source or venue-year line, citation count, open full-text link when visible, result URL, and Google Scholar `data-cid` or equivalent cluster identifier when available.
-- Use Google Scholar mainly for recent or online-first papers, working papers, citation trails, and records that need recency or citation-count checks beyond OpenAlex.
-- Follow promising records to publisher pages, SSRN, NBER, institutional repositories, DOI pages, or journal pages before marking publication facts or findings as verified.
+- Use Google Scholar mainly to verify English records found through OpenAlex, confirm visible publication/citation metadata, and check recency or citation-count signals beyond OpenAlex.
+- Do not follow records to publisher pages, SSRN, NBER, institutional repositories, DOI pages, or journal pages unless the user explicitly asks for deeper verification or working-paper coverage.
 - If Google Scholar shows CAPTCHA, unusual-traffic warnings, login requirements, or access prompts, stop and ask the user to complete the browser step manually before continuing.
 
 For CNKI:
@@ -72,18 +72,18 @@ For CNKI:
 - Use ordinary keyword search for broad discovery and advanced search when author, title, journal, year range, source category, CSSCI, 北大核心, or other filters matter.
 - Prioritize CSSCI, 北大核心, and accounting, finance, management, and economics journals; give special attention to the priority Chinese journals listed above.
 - Extract and record the title, authors, source or journal, publication date, citation count, download count, result URL, and detail-page URL when available.
-- Treat journal level, indexing status, abstracts, keywords, funding information, publication status, and issue details as verified only after checking a CNKI detail page or journal page.
+- Treat CNKI search results as CNKI records. Do not require extra verification beyond recording the visible CNKI fields.
 - If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to handle the browser step manually. Do not attempt to bypass permissions or automate downloads.
 
 ## Verification Labels
 
-Use exactly one label for each record:
+Use exactly one label for each English record:
 
-- `verified`: key facts are checked against a publisher page, journal page, DOI record, SSRN/NBER/institutional repository, CNKI detail page, or another reliable source.
+- `verified`: key facts are checked through Google Scholar.
 - `partially verified`: title/authors/year or venue are supported, but important details such as findings, sample, identification, DOI, or final publication status are not fully checked.
 - `unverified`: discovered through search or memory but not confirmed from a reliable source.
 
-Never use unverified records as decisive support for a contribution, theory claim, or design precedent. They can be listed as candidates for follow-up.
+For Chinese records found in CNKI, use `CNKI record` instead of forcing a verified/partially verified/unverified label. Never use unverified English records as decisive support for a contribution, theory claim, or design precedent. They can be listed as candidates for follow-up.
 
 ## Staged Evidence Packets
 
@@ -101,8 +101,8 @@ Use this table structure:
 Field rules:
 
 - `Paper`: title, authors, year, and source or venue when known.
-- `Source route`: OpenAlex, Google Scholar, CNKI, publisher page, SSRN, NBER, institutional repository, DOI page, or journal page.
-- `Verification`: use `verified`, `partially verified`, or `unverified`.
+- `Source route`: OpenAlex, Google Scholar, CNKI, or a user-requested working-paper source.
+- `Verification`: for English records, use `verified`, `partially verified`, or `unverified`; for Chinese CNKI records, use `CNKI record`.
 - `Research problem`: the paper's actual research question, not a generic topic label.
 - `Setting`: institutional setting, sample context, country or market, industry, and unit of analysis when known.
 - `Constructs`: core constructs, concepts, variables, or mechanisms touched by the paper.
