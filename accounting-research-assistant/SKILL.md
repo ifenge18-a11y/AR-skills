@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "0.1.5"
+  version: "0.1.6"
 ---
 
 # Accounting Research Assistant
@@ -37,17 +37,66 @@ Use the Boss-led multi-agent workflow only when the user explicitly asks for mul
 
 When Boss-led mode is active, the Boss is responsible for the research plan, role assignment, synthesis, and critical review. Read `references/agent-roles.md` before creating role agents or describing the team protocol.
 
+### User Consultation Protocol
+
+In Boss-led mode, Boss must act as a research mentor and project lead, not only as a background dispatcher.
+
+Before deep role-agent work, Boss must first state the working understanding of:
+
+- Research object and setting.
+- Market, sample, and unit of analysis.
+- Core constructs and likely variables.
+- Expected contribution path.
+- Data availability assumptions.
+- User's target output and research goal.
+
+If the topic is broad, incremental, or under-specified, Boss must not lock the topic or silently choose a pivot. Boss should present 2-4 feasible research cuts, recommend one default, and ask the user to choose when the choice materially changes contribution, data, identification, or writing direction.
+
+High-impact choices that require user confirmation include:
+
+- China A-share, US, cross-country, or another institutional setting.
+- Causal identification versus association and mechanism evidence.
+- Text-based measurement versus database variables or hand collection.
+- Available databases, proprietary access, and willingness to build new variables.
+- Whether to preserve the original topic, narrow the mechanism, change sample, change variables, or run a low-cost feasibility screen.
+
+If the user has not confirmed a high-impact choice, Boss may run only low-cost screening under clearly labeled provisional assumptions. Boss must not present provisional assumptions as settled conclusions.
+
+### Topic Discussion Gate
+
+Before deep Literature Reviewer work, Boss must apply one topic-discussion gate:
+
+- `LOCK_TOPIC`: the user has confirmed the research question; deep literature screening may begin.
+- `NEED_USER_CHOICE`: multiple reasonable research cuts exist and the user must choose.
+- `LOW_COST_SCREEN`: the topic is not locked, but limited literature or data feasibility screening can clarify options.
+- `STOP_AND_CLARIFY`: missing constraints would make further work likely to move in the wrong direction.
+
+When the gate is `NEED_USER_CHOICE` or `STOP_AND_CLARIFY`, Boss should not start Theory Analyst, Empirical Designer, Research Coder, or Writer until the user resolves the choice.
+
+### Blocker Reporting Format
+
+When a role agent finds a direct competing paper, literature gap, unavailable variable, weak identification, data access blocker, or need to pivot, Boss must report it to the user before deciding the next deep stage:
+
+- `发现`: the specific issue found by the role agent.
+- `影响`: how the issue changes topic value, contribution, design, data, or interpretation.
+- `Boss 建议`: the recommended path.
+- `可选路径`: usually 2-3 concrete options, such as preserving the original topic, narrowing the mechanism, changing sample, changing variables, or running a data feasibility check.
+- `需要用户确认`: the decision the user needs to make before deep work continues.
+
 Default runtime protocol:
 
-1. Boss drafts the research plan, identifies missing constraints, defines success criteria, and decides which role agents are needed.
-2. When the user provides or invites multiple topics, Boss first builds a topic portfolio instead of prematurely locking one topic.
-3. Start `literature_reviewer` first. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
-4. Boss applies the literature screening gate and returns `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
-5. Start one `theory_analyst` subagent after the primary topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
-6. Boss applies the theory mechanism gate, then starts `empirical_designer` when the mechanisms and hypotheses are usable.
-7. Boss applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
-8. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
-9. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
+1. Boss states the initial understanding, missing constraints, high-impact choices, and success criteria.
+2. Boss applies the topic discussion gate before deep role-agent work.
+3. When the user provides or invites multiple topics, Boss first builds a topic portfolio instead of prematurely locking one topic.
+4. If the topic is not locked, Boss may start `literature_reviewer` only for low-cost screening and must explain the purpose and limits to the user.
+5. Start deep `literature_reviewer` work only after `LOCK_TOPIC`. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
+6. Boss reports the Literature Reviewer findings to the user, especially blockers and direct competitors, then applies the literature screening gate and returns `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
+7. Boss must not silently pivot after the literature gate. If `PIVOT` or `PIVOT_TO_BACKUP` would materially change the project, Boss gives options and waits for user confirmation before deep downstream work.
+8. Start one `theory_analyst` subagent after the primary topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
+9. Boss reports the Theory Analyst findings and applies the theory mechanism gate, then starts `empirical_designer` only when the mechanisms and hypotheses are usable or the user confirms the refinement path.
+10. Boss reports the Empirical Designer findings and applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
+11. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
+12. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
 
 Topic portfolio protocol:
 
@@ -65,6 +114,8 @@ At every gate, Boss must choose one of:
 - `REFINE`: revise the current stage before continuing.
 - `PIVOT`: adjust the research question, framing, setting, or design direction.
 - `PIVOT_TO_BACKUP`: replace the primary topic with a backup topic because the current topic's contribution, theory, data, or identification problem is weaker than an available alternative.
+
+For `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`, Boss must explain the issue, recommend a path, offer concrete options when the change is high-impact, and get user confirmation before starting deep downstream agents.
 
 Boss must challenge weak logic, unsupported claims, identification risks, missing literature, unavailable data, mechanism gaps, contribution overclaiming, and writing that is fluent but not evidence-grounded.
 
