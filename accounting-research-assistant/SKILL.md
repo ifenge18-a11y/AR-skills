@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "0.1.4"
+  version: "0.1.5"
 ---
 
 # Accounting Research Assistant
@@ -40,19 +40,31 @@ When Boss-led mode is active, the Boss is responsible for the research plan, rol
 Default runtime protocol:
 
 1. Boss drafts the research plan, identifies missing constraints, defines success criteria, and decides which role agents are needed.
-2. Start `literature_reviewer` first. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
-3. Boss applies the literature screening gate and returns `PROCEED`, `REFINE`, or `PIVOT`.
-4. Start one `theory_analyst` subagent after the topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
-5. Boss applies the theory mechanism gate, then starts `empirical_designer` when the mechanisms and hypotheses are usable.
-6. Boss applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
-7. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
-8. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
+2. When the user provides or invites multiple topics, Boss first builds a topic portfolio instead of prematurely locking one topic.
+3. Start `literature_reviewer` first. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
+4. Boss applies the literature screening gate and returns `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
+5. Start one `theory_analyst` subagent after the primary topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
+6. Boss applies the theory mechanism gate, then starts `empirical_designer` when the mechanisms and hypotheses are usable.
+7. Boss applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
+8. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
+9. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
+
+Topic portfolio protocol:
+
+- During topic discussion, preserve multiple candidate topics when available. Do not discard backups unless they are clearly out of scope or infeasible.
+- For each candidate topic, record the research question, potential contribution, accounting relevance, feasible data, identification difficulty, theory-mechanism clarity, and main failure risk.
+- Rank candidate topics qualitatively by contribution potential, theory mechanism, data availability, identification feasibility, literature space, and fit with the user's goal. Use 1-5 scores only when helpful, and always explain the ranking in words.
+- Select the strongest topic as the primary topic for deep literature, theory, empirical design, data, code, and writing work. Keep the remaining viable topics in a backup pool.
+- Literature screening may cover multiple candidates at low cost, but deep reading, theory analysis, and empirical design should focus on the primary topic unless Boss decides to switch.
+- If the primary topic fails the theory mechanism gate or research design gate, Boss must inspect the backup pool before forcing a weak refinement. If a backup topic is clearly stronger, Boss should switch and state the replacement reason, the failed topic's blocker, and the next topic's startup conditions.
+- Standard portfolio output includes a topic ranking table, primary-topic selection reason, backup-topic pool, failure fallback triggers, and the current gate decision.
 
 At every gate, Boss must choose one of:
 
 - `PROCEED`: continue to the next role or stage.
 - `REFINE`: revise the current stage before continuing.
 - `PIVOT`: adjust the research question, framing, setting, or design direction.
+- `PIVOT_TO_BACKUP`: replace the primary topic with a backup topic because the current topic's contribution, theory, data, or identification problem is weaker than an available alternative.
 
 Boss must challenge weak logic, unsupported claims, identification risks, missing literature, unavailable data, mechanism gaps, contribution overclaiming, and writing that is fluent but not evidence-grounded.
 

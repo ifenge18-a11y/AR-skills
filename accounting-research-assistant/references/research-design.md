@@ -119,12 +119,39 @@ Include tests matched to the main threat:
 - Excluding crisis years, regulated industries, state-owned firms, financial firms, or influential observations when justified.
 - Heterogeneity tests tied to theory, not just data mining.
 
+## Proxy Variable Strategy
+
+For core empirical designs, provide a proxy-variable plan before finalizing the regression architecture. Cover the dependent variable, key independent variable, and any moderator or mediator that is central to the theory.
+
+Use a variable/proxy table with:
+
+- Construct role: dependent variable, key independent variable, moderator, mediator, or control.
+- Proxy definition and construction logic.
+- Data source and field availability status.
+- Timing relative to treatment and outcome.
+- Theoretical fit and literature convention.
+- Strengths, weaknesses, and likely measurement error.
+- Planned use: primary regression, alternative definition, robustness, mechanism, heterogeneity, or supplementary analysis.
+
+Choose the primary proxy based on theory fit, prior literature, data quality, timing discipline, and interpretability. Do not choose the primary proxy because it is expected to produce the strongest coefficient or best significance.
+
+When several proxies are defensible, pre-specify how they enter the empirical plan:
+
+- Use one primary proxy in the main regression.
+- Use close substitute proxies as alternative-variable robustness tests.
+- Use mechanism-specific proxies only when they map to a stated mechanism.
+- Explain how consistent, weaker, opposite-sign, or null results across proxies would change interpretation.
+
+Do not engage in p-hacking: do not report only significant proxies, redefine variables after seeing results, or present a post-hoc proxy choice as if it were planned ex ante. If a user asks to choose the most significant variable definition, reframe the task as a transparent primary-proxy and robustness design.
+
 ## Output Contract
 
 For every empirical design, return:
 
 - Research design summary: setting, unit, sample period if known, and inference goal.
-- Variable table: dependent variable, key variable, controls, fixed effects, clustering, timing, and source.
+- Variable/proxy table: dependent variable, key variable, moderators or mediators when relevant, controls, fixed effects, clustering, timing, source, and planned use.
+- Primary proxy rationale for the dependent variable and key independent variable.
+- Alternative proxy regression plan, including how each alternative will be interpreted.
 - Model equation with clear subscripts and timing.
 - Identification argument and why it may fail.
 - Test architecture: main test, robustness, falsification, mechanism, and heterogeneity tests.
@@ -151,3 +178,7 @@ Use causal wording only when the design and assumptions support it.
 - Clustering follows the treatment or shock level when possible.
 - Robustness tests answer concrete threats rather than padding the design.
 - Causal claims are downgraded when parallel trends, exclusion, continuity, or other core assumptions are weak.
+- Core dependent and key independent variables have more than one reasonable proxy when the construct allows it.
+- Primary proxies are selected by theory fit and measurement quality, not expected statistical significance.
+- Proxy definitions avoid mechanical correlation, shared construction components, and timing mismatch.
+- Alternative proxies are planned as transparent robustness, mechanism, heterogeneity, or supplementary analyses rather than post-hoc significant-result selection.

@@ -75,6 +75,18 @@ Use stronger verbs only when justified:
 
 Avoid unsupported novelty language such as "first", "unique", "proves", "fully addresses", or "eliminates endogeneity" unless verified and defensible.
 
+## Natural Academic Voice
+
+Default to clear, restrained, human academic prose. The text should sound like a researcher who understands the project and is explaining it carefully, not like a polished template.
+
+- Let paragraphs move the argument forward with specific information. Do not add empty bridge sentences just to make the text sound smooth.
+- Use natural transitions, but avoid overusing formulaic connectors such as "more importantly", "in addition", "furthermore", and "therefore" when the logical relation is already clear.
+- Avoid slogan-like contribution language. Replace generic claims such as "This study contributes to the literature in several important ways" with the specific literature, construct, setting, mechanism, or design boundary that the paper changes.
+- For Chinese manuscript prose, avoid stock phrases such as "随着……不断发展", "具有重要理论和现实意义", and "填补了研究空白" unless the sentence immediately specifies the concrete development, importance, or gap.
+- For English manuscript prose, avoid inflated or template-like phrasing such as "This paper makes several important contributions" unless each contribution is immediately grounded in a specific claim.
+- Vary sentence length and paragraph rhythm. Do not force every paragraph into the same three-part structure.
+- Keep the voice natural without becoming casual, emotional, promotional, or less rigorous.
+
 ## Output Contract
 
 For writing tasks, return:
@@ -93,4 +105,7 @@ For manuscript-facing English prose, default to clear academic English rather th
 - The accounting or finance relevance is explicit.
 - Contribution claims are bounded against prior literature and institutional setting.
 - Results are not invented from planned tests.
+- The prose does not rely on AI-like generic summaries, decorative transitions, or overly symmetrical three-part structures.
+- Each paragraph advances a real claim, piece of evidence, mechanism, design choice, or interpretation rather than only connecting surrounding text.
+- Natural expression does not weaken evidence boundaries, causal caution, or accounting-specific logic.
 - The text does not drift into reviewer response, submission strategy, PPT, or reference-management work.
