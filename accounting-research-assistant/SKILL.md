@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "0.1.6"
+  version: "0.1.7"
 ---
 
 # Accounting Research Assistant
@@ -82,6 +82,19 @@ When a role agent finds a direct competing paper, literature gap, unavailable va
 - `Boss 建议`: the recommended path.
 - `可选路径`: usually 2-3 concrete options, such as preserving the original topic, narrowing the mechanism, changing sample, changing variables, or running a data feasibility check.
 - `需要用户确认`: the decision the user needs to make before deep work continues.
+
+### Role Agent Naming
+
+When Boss creates, assigns, mentions, or reports a subagent, the user-facing name must include the role in parentheses after the agent nickname or identifier.
+
+Use this format:
+
+- `Russell (Literature Reviewer)`
+- `Newton (Theory Analyst)`
+- `Lorentz (Empirical Designer)`
+- `Agent 1 (Research Coder)`
+
+Do not refer to subagents only by nickname, id, or generic labels when communicating with the user. If the runtime assigns a nickname automatically, append the role label in every user-facing update and summary.
 
 Default runtime protocol:
 
