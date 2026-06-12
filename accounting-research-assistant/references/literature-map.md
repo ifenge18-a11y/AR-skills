@@ -6,6 +6,8 @@ Use this reference for literature reviews, related-work sections, gap identifica
 
 This file supports intellectual literature work: mapping conversations, constructs, theory, evidence, limitations, and contribution boundaries. Use Zotero for operational reference work. When Zotero archiving is part of the task, this skill may prepare candidate records and use the Zotero plugin for import, project collections, tags, and Boss screening notes; PDF handling, exports, citation keys, duplicate cleanup, and broad local library maintenance remain Zotero/manual follow-up.
 
+For durable project work, use the project Obsidian research-wiki as the first and last stop: read existing wiki knowledge before search, then write useful literature findings and synthesis back through `$research-wiki`.
+
 ## Intake Check
 
 Before mapping literature, identify:
@@ -15,8 +17,9 @@ Before mapping literature, identify:
 - Unit of analysis or evidence base when known.
 - User's purpose: topic screening, positioning, related-work section, theory support, design precedent, or citation verification.
 - Language scope: English, Chinese, or both.
+- Project wiki status: existing research-wiki path, candidate project path, or no wiki yet.
 
-If the request is mainly reference-library work, route it to Zotero and keep this file focused on research meaning, candidate selection, and Boss screening rationale.
+If the request is mainly reference-library work, route it to Zotero. If it is durable research knowledge work, route persistence through `$research-wiki` and keep this file focused on research meaning, candidate selection, and Boss screening rationale.
 
 ## Search Strategy
 
@@ -34,12 +37,14 @@ Prefer seed papers from top accounting journals and adjacent finance/economics j
 
 ## Search Route
 
-Use this order for literature discovery:
+Use this order for literature discovery and persistence:
 
-1. OpenAlex preliminary search: use OpenAlex to identify candidate English works, authors, venues, years, DOI metadata, citation links, and related concepts. Treat OpenAlex as a discovery and metadata source, not final proof of publication facts.
-2. Google Scholar English verification: use Chrome to search Google Scholar to verify English records that came from OpenAlex or are otherwise used as core evidence. Record visible metadata and citation signals. If Google Scholar asks for login, CAPTCHA, or unusual traffic confirmation, stop and ask the user to complete it manually.
-3. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. CNKI records do not require extra verification beyond the CNKI search record. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
-4. Working-paper search: skip by default. Search SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for working papers or deeper working-paper coverage.
+1. Research-wiki preflight: if a project wiki exists, read `index.md`, `log.md`, and relevant `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` pages before external search. If no wiki exists and the task has durable value, recommend creating one and binding it to a Zotero collection.
+2. OpenAlex preliminary search: use OpenAlex to identify candidate English works, authors, venues, years, DOI metadata, citation links, and related concepts. Treat OpenAlex as a discovery and metadata source, not final proof of publication facts.
+3. Google Scholar English verification: use Chrome to search Google Scholar to verify English records that came from OpenAlex or are otherwise used as core evidence. Record visible metadata and citation signals. If Google Scholar asks for login, CAPTCHA, or unusual traffic confirmation, stop and ask the user to complete it manually.
+4. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. CNKI records do not require extra verification beyond the CNKI search record. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
+5. Working-paper search: skip by default. Search SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for working papers or deeper working-paper coverage.
+6. Research-wiki filing: after Boss screening or synthesis, pass project-use decisions to `$research-wiki` so useful sources and cross-paper claims are stored in Obsidian rather than left only in chat.
 
 For OpenAlex, search by title keywords, construct synonyms, author names, venue names, publication years, and DOI when available. Record the OpenAlex work URL or DOI when available.
 
@@ -169,7 +174,8 @@ For literature-mapping tasks, return:
 - Theoretical conversations and unresolved tensions.
 - Contribution boundary: what the user's project can and cannot claim relative to prior work.
 - Missing verification list for papers, findings, data facts, or publication status.
-- Zotero candidate-import and Boss-screening note only when the user needs Zotero archiving.
+- Research-wiki update summary for durable project work, including pages created or changed when writes are performed.
+- Zotero candidate-import and Boss-screening note when new records should enter the project Zotero collection.
 
 ## QA Checklist
 
@@ -177,4 +183,5 @@ For literature-mapping tasks, return:
 - Chinese and English literature are not treated as interchangeable when institutional settings differ.
 - A paper's finding is not generalized beyond its setting, data, and identification.
 - Literature gaps are framed as theory, setting, measurement, boundary, or design gaps, not just absence claims.
+- Durable findings have been checked against the project research-wiki and filed back through `$research-wiki` when they add lasting project value.
 - Citation formatting, exports, PDF retrieval, attachment handling, and broad library maintenance are left to Zotero/manual follow-up.

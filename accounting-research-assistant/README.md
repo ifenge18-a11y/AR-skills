@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v0.1.8`
+Current version: `v1.0.0`
 
-当前版本：`v0.1.8`
+当前版本：`v1.0.0`
 
 ## Overview / 概览
 
@@ -12,11 +12,27 @@ Current version: `v0.1.8`
 
 `accounting-research-assistant` 是一个面向会计学、金融学和财务管理研究的 Codex Skill，用于帮助研究者从宽泛研究兴趣出发，逐步形成研究问题、文献定位、理论机制、实证设计、数据方案、可复现代码计划和论文写作文本。
 
-It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development.
+It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development. Since v1.0.0, durable literature and synthesis work is designed to flow through the project Obsidian research-wiki by default.
 
-该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。
+该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。从 v1.0.0 开始，具有长期价值的文献与综合判断默认进入项目 Obsidian research-wiki。
 
-## What's New in v0.1.8 / 当前版本改动
+## What's New in v1.0.0 / 当前版本改动
+
+- Made `accounting-research-assistant` the research-control layer and `$research-wiki` the default persistent Obsidian knowledge layer for durable literature, theory, design, variable, method, and claim work.
+- Added a default preflight for project knowledge: read `index.md`, `log.md`, and relevant `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` pages before external literature search when a project wiki exists.
+- Updated the literature workflow so AR-skill checks Obsidian first, searches external sources second, screens Zotero candidates with Boss judgment, and files useful source notes or synthesis back through `$research-wiki`.
+- Added the AR-to-research-wiki handoff fields: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
+- Kept first-write safety: before writing to an Obsidian project for the first time, the assistant must state the exact project path and get user confirmation.
+
+中文说明：
+
+- 将 `accounting-research-assistant` 明确为研究总控层，将 `$research-wiki` 设为默认 Obsidian 知识沉淀层，用于有长期价值的文献、理论、设计、变量、方法和 claim 工作。
+- 增加项目知识库预检：如果项目 wiki 已存在，外部检索前先读取 `index.md`、`log.md` 以及相关 `sources/`、`themes/`、`concepts/`、`methods/`、`claims/` 页面。
+- 更新文献流程：AR-skill 先查 Obsidian，再检索外部来源；Boss 筛选 Zotero 候选文献后，通过 `$research-wiki` 回写 source note 或综合页面。
+- 增加 AR 到 research-wiki 的固定交接字段：`project`、`zotero_item_key`、`boss_category`、`deep_read_priority`、`boss_screening_reason`、`pdf_status`、`project_use` 和 `need_fulltext_read`。
+- 保留首次写入安全规则：首次写入某个 Obsidian 项目前，必须说明确切项目路径并获得用户确认。
+
+## What's New in v0.1.8 / 历史版本改动
 
 - Added a Zotero candidate-record import workflow for Literature Reviewer outputs.
 - Added Boss abstract screening after Zotero import, with fixed categories: `core_literature`, `related_stream`, `theory_mechanism`, `method_data`, `china_context`, and `excluded_weakfit`.
@@ -120,9 +136,13 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 ## Literature Workflow / 文献工作流
 
-The skill treats literature search as research discovery and verification, not as citation-library management.
+The skill treats literature search as research discovery, verification, and durable Obsidian knowledge capture, not as citation-library management.
 
-该 Skill 将文献检索视为研究发现和事实核验，而不是引用库管理。
+该 Skill 将文献检索视为研究发现、事实核验和 Obsidian 知识沉淀，而不是引用库管理。
+
+For durable project work, AR-skill first checks the project research-wiki, then searches external sources, screens records, and files useful source notes or synthesis back through `$research-wiki`.
+
+对于有长期项目价值的工作，AR-skill 先检查项目 research-wiki，再检索外部来源、筛选文献，并通过 `$research-wiki` 把有用的 source note 或综合判断写回 Obsidian。
 
 Literature Reviewer uses staged evidence packets. During topic discussion, it uses screening granularity to record each paper's verification status, research problem, setting, constructs, main finding, relevance to the topic, project use, and deep-read priority. After the topic is settled, theory-core and empirical-core papers are upgraded to deep-read granularity for mechanisms, competing explanations, boundary conditions, data, variables, identification, tests, limitations, and project implications.
 
@@ -146,13 +166,13 @@ When access prompts, login requirements, CAPTCHA, or permission checks appear, t
 
 遇到登录、验证码、权限确认或访问限制时，工作流应暂停，并由用户手动处理。
 
-When a Literature Reviewer result needs to be imported into Zotero, use the project-topic candidate-import model: one root collection per research project, fixed child collections such as `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`, plus tags for verification status, project role, source, Boss screening category, deep-read priority, and follow-up action. Literature Reviewer imports usable candidate records through the Zotero plugin when Zotero archiving is part of the task; Boss then screens titles and abstracts to decide which papers need deep reading.
+For durable literature work, use the project-topic candidate-import model: one root Zotero collection per research project, fixed child collections such as `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`, plus tags for verification status, project role, source, Boss screening category, deep-read priority, and follow-up action. Literature Reviewer imports usable new candidate records through the Zotero plugin when they should enter the reference library; Boss then screens titles and abstracts to decide which papers need deep reading and which research-wiki pages should be updated.
 
-当 Literature Reviewer 的结果需要导入 Zotero 时，采用“项目-主题型候选题录导入”模型：每个研究项目一个根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源、Boss 筛选分类、精读优先级和后续动作。当任务包含 Zotero 归档时，Literature Reviewer 通过 Zotero 插件导入可用候选题录；Boss 再根据标题和摘要筛选哪些文献需要精读。
+对于有长期价值的文献工作，采用“项目-主题型候选题录导入”模型：每个研究项目一个 Zotero 根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源、Boss 筛选分类、精读优先级和后续动作。当新文献应进入引用库时，Literature Reviewer 通过 Zotero 插件导入可用候选题录；Boss 再根据标题和摘要筛选哪些文献需要精读，以及哪些 research-wiki 页面需要更新。
 
-Boss screening uses fixed fields: `boss_category`, `deep_read_priority`, `boss_screening_reason`, and `pdf_status`. High-priority records should be marked `need_pdf` and `need_fulltext_read` unless a PDF is already available. PDF retrieval, paid access, CAPTCHA, institutional login, duplicate cleanup, citation keys, exports, and full-text attachments remain manual or later Zotero follow-up work.
+Boss screening uses fixed fields: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`. High-priority records should be marked `need_pdf` and `need_fulltext_read` unless a PDF is already available. PDF retrieval, paid access, CAPTCHA, institutional login, duplicate cleanup, citation keys, exports, and full-text attachments remain manual or later Zotero follow-up work.
 
-Boss 筛选使用固定字段：`boss_category`、`deep_read_priority`、`boss_screening_reason` 和 `pdf_status`。高优先级文献应标记 `need_pdf` 和 `need_fulltext_read`，除非 PDF 已经可用。PDF 获取、付费访问、验证码、机构登录、重复项清理、citation key、导出和全文附件仍由人工或后续 Zotero 流程处理。
+Boss 筛选使用固定字段：`project`、`zotero_item_key`、`boss_category`、`deep_read_priority`、`boss_screening_reason`、`pdf_status`、`project_use` 和 `need_fulltext_read`。高优先级文献应标记 `need_pdf` 和 `need_fulltext_read`，除非 PDF 已经可用。PDF 获取、付费访问、验证码、机构登录、重复项清理、citation key、导出和全文附件仍由人工或后续 Zotero 流程处理。
 
 ## Boss-Led Multi-Agent Mode / Boss-Led 多 Agent 模式
 
