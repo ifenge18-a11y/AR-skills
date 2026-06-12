@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v0.1.4`
+Current version: `v0.1.8`
 
-当前版本：`v0.1.4`
+当前版本：`v0.1.8`
 
 ## Overview / 概览
 
@@ -16,7 +16,23 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。
 
-## What's New in v0.1.4 / 当前版本改动
+## What's New in v0.1.8 / 当前版本改动
+
+- Added a Zotero candidate-record import workflow for Literature Reviewer outputs.
+- Added Boss abstract screening after Zotero import, with fixed categories: `core_literature`, `related_stream`, `theory_mechanism`, `method_data`, `china_context`, and `excluded_weakfit`.
+- Added fixed Boss deep-read priorities: `high`, `medium`, `low`, and `exclude`.
+- Added Zotero screening fields: `boss_category`, `deep_read_priority`, `boss_screening_reason`, and `pdf_status`.
+- Clarified that PDF retrieval, paywalled full-text access, CAPTCHA, institutional login, and full-text attachments are handled manually or by later Zotero cleanup, not by Literature Reviewer.
+
+中文说明：
+
+- 增加 Literature Reviewer 候选题录导入 Zotero 的流程。
+- 增加 Zotero 导入后的 Boss 摘要筛选，固定分类为：`core_literature`、`related_stream`、`theory_mechanism`、`method_data`、`china_context` 和 `excluded_weakfit`。
+- 增加 Boss 固定精读优先级：`high`、`medium`、`low` 和 `exclude`。
+- 增加 Zotero 筛选字段：`boss_category`、`deep_read_priority`、`boss_screening_reason` 和 `pdf_status`。
+- 明确 PDF 获取、付费全文、验证码、机构登录和全文附件由人工或后续 Zotero 清理流程处理，不由 Literature Reviewer 自动完成。
+
+## What's New in v0.1.4 / 历史版本改动
 
 - Upgraded Boss-led mode into a stage-gated collaboration workflow with literature screening, theory mechanism, research design, and writing quality gates.
 - Added explicit Boss gate decisions: `PROCEED`, `REFINE`, and `PIVOT`.
@@ -48,17 +64,17 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 
 ## What's New in v0.1.2 / 历史版本改动
 
-- Added a project-topic Zotero handoff model for Literature Reviewer outputs.
+- Added a project-topic Zotero archiving model for Literature Reviewer outputs.
 - Defined the default Zotero collection structure for research projects, including `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`.
 - Added a standard tag vocabulary for verification status, literature role, discovery source, and follow-up actions.
-- Expanded the Literature Reviewer handoff contract to include suggested collection, tags, and Zotero actions while keeping actual library operations in Zotero.
+- Expanded the Literature Reviewer import/archiving contract to include suggested collection, tags, and Zotero actions while keeping actual library operations in Zotero.
 
 中文说明：
 
-- 增加 Literature Reviewer 输出到 Zotero 的“项目-主题型”交接模型。
+- 增加 Literature Reviewer 输出到 Zotero 的“项目-主题型”归档模型。
 - 明确研究项目默认 Zotero collection 结构，包括 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data` 和 `90_Excluded_WeakFit`。
 - 增加核验状态、文献作用、发现来源和后续动作的标准 tag 体系。
-- 扩展 Literature Reviewer 的交接要求：输出建议 collection、tags 和 Zotero actions，但实际文献库操作仍由 Zotero 完成。
+- 扩展 Literature Reviewer 的导入/归档要求：输出建议 collection、tags 和 Zotero actions，但实际文献库操作仍由 Zotero 完成。
 
 ## What's New in v0.1.1 / 历史版本改动
 
@@ -130,9 +146,13 @@ When access prompts, login requirements, CAPTCHA, or permission checks appear, t
 
 遇到登录、验证码、权限确认或访问限制时，工作流应暂停，并由用户手动处理。
 
-When a Literature Reviewer result needs to be imported into Zotero, use the project-topic handoff model: one root collection per research project, fixed child collections such as `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`, plus tags for verification status, project role, source, and follow-up action. Zotero performs the actual import, cleanup, PDF attachment, duplicate handling, and collection operations.
+When a Literature Reviewer result needs to be imported into Zotero, use the project-topic candidate-import model: one root collection per research project, fixed child collections such as `00_Inbox_ToReview`, `01_Core_Literature`, `04_Method_Data`, and `90_Excluded_WeakFit`, plus tags for verification status, project role, source, Boss screening category, deep-read priority, and follow-up action. Literature Reviewer imports usable candidate records through the Zotero plugin when Zotero archiving is part of the task; Boss then screens titles and abstracts to decide which papers need deep reading.
 
-当 Literature Reviewer 的结果需要导入 Zotero 时，采用“项目-主题型”交接：每个研究项目一个根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源和后续动作。实际导入、清洗、PDF 附件、重复项处理和 collection 操作仍由 Zotero 完成。
+当 Literature Reviewer 的结果需要导入 Zotero 时，采用“项目-主题型候选题录导入”模型：每个研究项目一个根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源、Boss 筛选分类、精读优先级和后续动作。当任务包含 Zotero 归档时，Literature Reviewer 通过 Zotero 插件导入可用候选题录；Boss 再根据标题和摘要筛选哪些文献需要精读。
+
+Boss screening uses fixed fields: `boss_category`, `deep_read_priority`, `boss_screening_reason`, and `pdf_status`. High-priority records should be marked `need_pdf` and `need_fulltext_read` unless a PDF is already available. PDF retrieval, paid access, CAPTCHA, institutional login, duplicate cleanup, citation keys, exports, and full-text attachments remain manual or later Zotero follow-up work.
+
+Boss 筛选使用固定字段：`boss_category`、`deep_read_priority`、`boss_screening_reason` 和 `pdf_status`。高优先级文献应标记 `need_pdf` 和 `need_fulltext_read`，除非 PDF 已经可用。PDF 获取、付费访问、验证码、机构登录、重复项清理、citation key、导出和全文附件仍由人工或后续 Zotero 流程处理。
 
 ## Boss-Led Multi-Agent Mode / Boss-Led 多 Agent 模式
 
@@ -158,14 +178,14 @@ When explicitly requested, the skill can use a Boss-led team structure:
 
 Out of scope:
 
-- Citation-file generation, BibTeX/RIS conversion, PDF-library management, and Zotero collection operations.
+- Citation-file generation, BibTeX/RIS conversion, PDF downloading, paywalled full-text access, CAPTCHA handling, institutional-login handling, attachment management, and broad Zotero library cleanup.
 - Bypassing paywalls, institutional access controls, CAPTCHA, or website anti-automation systems.
 - Journal targeting, submission strategy, reviewer responses, appeal letters, seminar slides, and presentation production.
 - Generic biomedical, laboratory, or Nature/CNS-style scientific-writing workflows.
 
 不在本 Skill 范围内：
 
-- 生成引用文件、BibTeX/RIS 转换、PDF 文献库管理和 Zotero collection 操作。
+- 生成引用文件、BibTeX/RIS 转换、PDF 下载、付费全文访问、验证码处理、机构登录处理、附件管理和广义 Zotero 文献库清理。
 - 绕过付费墙、机构权限、验证码或网站反自动化机制。
 - 期刊投稿策略、审稿回复、申诉信、研讨会 PPT 或展示材料制作。
 - 生物医学、实验室研究或 Nature/CNS 风格的泛科研写作流程。

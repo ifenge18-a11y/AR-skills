@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, and manuscript section writing. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "0.1.7"
+  version: "0.1.8"
 ---
 
 # Accounting Research Assistant
@@ -12,8 +12,8 @@ metadata:
 This is a single skill for accounting, finance, and financial management research. Keep all work inside the existing research-assistant scope:
 
 - In scope: research question shaping, literature understanding and positioning, theory and hypotheses, empirical design, data and variable planning, Stata/Python analysis plans, reproducibility planning, and manuscript section drafting or revision.
-- Out of scope: figure production, publication or submission strategy, reviewer response letters, rebuttals, seminar or PPT decks, Nature/CNS-style generic scientific writing, biomedical workflows, citation-file generation, BibTeX/RIS conversion, PDF library management, and Zotero library operations.
-- Zotero owns reference-management work. When users ask for citation files, imports, exports, PDFs, collections, or local bibliography management, route those tasks to Zotero instead of expanding this skill.
+- Out of scope: figure production, publication or submission strategy, reviewer response letters, rebuttals, seminar or PPT decks, Nature/CNS-style generic scientific writing, biomedical workflows, citation-file generation, BibTeX/RIS conversion, PDF downloading, paywalled full-text access, attachment management, and broad Zotero library maintenance.
+- Zotero owns reference-management operations. This skill may use the Zotero plugin to import candidate literature records, apply project collections/tags, and record Boss screening notes. PDF retrieval, institutional access, CAPTCHA, paid access, full-text attachment, duplicate cleanup, citation keys, and exports remain Zotero/manual follow-up work.
 
 When a user request mixes in-scope and out-of-scope work, handle the in-scope research work and explicitly route the out-of-scope portion to the appropriate tool or a separate workflow.
 
@@ -103,13 +103,15 @@ Default runtime protocol:
 3. When the user provides or invites multiple topics, Boss first builds a topic portfolio instead of prematurely locking one topic.
 4. If the topic is not locked, Boss may start `literature_reviewer` only for low-cost screening and must explain the purpose and limits to the user.
 5. Start deep `literature_reviewer` work only after `LOCK_TOPIC`. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
-6. Boss reports the Literature Reviewer findings to the user, especially blockers and direct competitors, then applies the literature screening gate and returns `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
-7. Boss must not silently pivot after the literature gate. If `PIVOT` or `PIVOT_TO_BACKUP` would materially change the project, Boss gives options and waits for user confirmation before deep downstream work.
-8. Start one `theory_analyst` subagent after the primary topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
-9. Boss reports the Theory Analyst findings and applies the theory mechanism gate, then starts `empirical_designer` only when the mechanisms and hypotheses are usable or the user confirms the refinement path.
-10. Boss reports the Empirical Designer findings and applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
-11. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
-12. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
+6. When Zotero import is part of the task, Literature Reviewer imports candidate records with sufficient metadata into the project Zotero inbox using the Zotero plugin. Import candidate records, not every search hit and not only final deep-read records. Do not download PDFs.
+7. Boss screens imported candidate records by title and abstract, classifies their project role, assigns deep-read priority, and records Zotero collection/tag decisions. Boss reports high-priority papers and papers requiring manual PDF retrieval to the user.
+8. Boss reports the Literature Reviewer findings to the user, especially blockers and direct competitors, then applies the literature screening gate and returns `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
+9. Boss must not silently pivot after the literature gate. If `PIVOT` or `PIVOT_TO_BACKUP` would materially change the project, Boss gives options and waits for user confirmation before deep downstream work.
+10. Start one `theory_analyst` subagent after the primary topic is stable. The Theory Analyst must internally run three perspectives: mechanism supporter, identification skeptic, and institutional-context reviewer. Do not create separate subagents for those perspectives by default.
+11. Boss reports the Theory Analyst findings and applies the theory mechanism gate, then starts `empirical_designer` only when the mechanisms and hypotheses are usable or the user confirms the refinement path.
+12. Boss reports the Empirical Designer findings and applies the research design gate before starting `research_coder`; the coder starts only after sample, variables, design, and interpretation boundaries are stable.
+13. Start `writer` only after Boss has reviewed the core literature, theory, and design outputs.
+14. Boss applies the writing quality gate and produces the final integrated answer with explicit assumptions and unresolved verification items.
 
 Topic portfolio protocol:
 
@@ -177,9 +179,9 @@ Create staged literature evidence packets. During topic discussion, use screenin
 
 Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, literature-use strategy, gap analysis, or OpenAlex-based preliminary search.
 
-Use Zotero, not this skill, when the user asks to download literature, import records, export BibTeX/RIS, work with PDFs, manage collections, or maintain citation metadata. This skill may define what literature is needed and how it supports the research question, but Zotero owns the reference-management operations.
+Use the Zotero plugin for candidate-record import when the literature workflow requires Zotero archiving. This skill defines why each record matters, how it supports the research question, and how Boss classifies it; Zotero performs the actual import, collection, tag, note, duplicate-check, metadata-cleanup, citation-key, export, and attachment operations.
 
-When literature needs to be handed off for Zotero import or archiving, use the project-topic workflow in `references/zotero-literature-workflow.md`: one project root collection, fixed child collections, cross-cutting tags, and a handoff table that states why the record matters, verification status, suggested collection, suggested tags, and suggested Zotero action.
+When Zotero import or archiving is needed, use the project-topic workflow in `references/zotero-literature-workflow.md`: one project root collection, fixed child collections, cross-cutting tags, candidate-record import, Boss abstract screening, deep-read priority, PDF-status flags, and collection/tag updates. If the user asks only for a literature review without Zotero work, do not force an import.
 
 Use current sources when the user asks for the latest papers, specific article details, journal status, rankings, or publication facts. For English literature, default to Google Scholar verification after OpenAlex screening. Use journal pages, SSRN, NBER, institutional repositories, publisher pages, or other deeper sources only when the user explicitly asks for deeper verification, working papers, or unpublished/latest working-paper evidence.
 
@@ -268,7 +270,7 @@ For manuscript work:
 
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
 - `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
-- `references/zotero-literature-workflow.md`: project-topic Zotero handoff model, collection structure, tag vocabulary, and import/cleanup acceptance criteria.
+- `references/zotero-literature-workflow.md`: project-topic Zotero candidate-import model, Boss abstract screening fields, collection structure, tag vocabulary, and manual PDF follow-up rules.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.
 - `references/writing-workflow.md`: accounting and finance manuscript section writing workflow.

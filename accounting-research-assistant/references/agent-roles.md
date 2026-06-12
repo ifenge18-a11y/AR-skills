@@ -14,7 +14,7 @@ Out of scope for every role:
 - Publication, submission, journal-targeting, or impact-strategy advice.
 - Reviewer response letters, rebuttals, appeal letters, referee reports, or decision-letter handling.
 - Seminar slides, PPT decks, or presentation production.
-- Citation-file generation, BibTeX/RIS conversion, PDF-library management, or Zotero collection operations. Route those to Zotero.
+- Citation-file generation, BibTeX/RIS conversion, PDF downloading, paid full-text access, attachment management, citation-key maintenance, exports, or broad Zotero library cleanup. Route those to Zotero or manual follow-up.
 - Biomedical, laboratory, clinical, or Nature/CNS generic scientific-writing workflows.
 
 When a user asks for out-of-scope work, the Boss should keep the in-scope research components and route the rest outside this skill.
@@ -38,6 +38,11 @@ Responsibilities:
 - For each gate, return one explicit decision: `PROCEED` to continue, `REFINE` to revise the current stage, `PIVOT` to adjust the research question, framing, setting, or design direction, or `PIVOT_TO_BACKUP` to replace the primary topic with a stronger backup.
 - Check topic value, novelty, accounting relevance, feasibility, and fit with the user's stated research purpose.
 - Maintain a topic portfolio when the user provides or invites multiple topics: rank candidates, select a primary topic, and keep viable backups for later fallback.
+- After Literature Reviewer imports candidate records to Zotero, screen records by title and abstract before assigning deep-reading work.
+- Assign each candidate a fixed Boss category: `core_literature`, `related_stream`, `theory_mechanism`, `method_data`, `china_context`, or `excluded_weakfit`.
+- Assign each candidate a fixed deep-read priority: `high`, `medium`, `low`, or `exclude`.
+- Record a short `boss_screening_reason` for every `high`, `medium`, or `excluded_weakfit` record, including whether it is a direct competitor, theory source, method/data precedent, China-context source, or weak fit.
+- Convert Boss screening decisions into Zotero collection/tag actions when Zotero import is part of the task. High-priority records should be marked `need_pdf` and `need_fulltext_read`; records without abstracts should be marked `abstract_missing` and `need_metadata_cleanup`; excluded records should move to `90_Excluded_WeakFit` with an exclusion reason.
 - Challenge weak causal claims, vague mechanisms, missing literature, unavailable data, incremental contributions, overclaimed novelty, and unsupported writing.
 - When a role agent finds a direct competing paper, literature shortage, variable measurement blocker, weak identification, unavailable data, or need to pivot, do not decide the pivot alone. Report the blocker, explain its impact, give a recommended path, offer concrete options, and identify what the user must confirm.
 - Enforce the scope boundary and prevent role outputs from drifting into figures, publication strategy, reviewer responses, PPTs, or reference-management operations.
@@ -52,6 +57,8 @@ Required output:
 - Primary-topic selection reason, backup-topic pool, and failure fallback triggers.
 - Agent assignments and dependencies, with every subagent displayed as `nickname (Role)`.
 - Gate decisions with reasons and required revisions or switching conditions when the decision is `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
+- Boss screening table when Zotero candidate records are imported, with fields for paper, abstract-based judgment, `boss_category`, `deep_read_priority`, project use, `boss_screening_reason`, `pdf_status`, and Zotero action.
+- High-priority reading list and manual PDF retrieval list after abstract screening.
 - Blocker reports when needed, using fields for `发现`, `影响`, `Boss 建议`, `可选路径`, and `需要用户确认`.
 - Critical review of role outputs, including weak identification, mechanism gaps, missing literature, unavailable data, contribution overclaiming, and unverified facts.
 - Final synthesis with assumptions and unresolved issues.
@@ -59,7 +66,7 @@ Required output:
 Gate criteria:
 
 - Topic discussion gate: choose `LOCK_TOPIC` only when the user has confirmed the research question; choose `NEED_USER_CHOICE` when multiple reasonable cuts exist; choose `LOW_COST_SCREEN` when limited screening can clarify unsettled options; choose `STOP_AND_CLARIFY` when missing constraints would likely send the project in the wrong direction.
-- Literature screening gate: English core records have Google Scholar verification; Chinese records come from CNKI; core accounting literature is covered; the gap is not just a missed-reading artifact; key papers have a stated project use.
+- Literature screening gate: English core records have Google Scholar verification; Chinese records come from CNKI; core accounting literature is covered; the gap is not just a missed-reading artifact; key papers have a stated project use. When Zotero candidate import is used, high-priority records have Boss abstract screening, collection/tag decisions, and manual PDF follow-up flags when needed.
 - Theory mechanism gate: each mechanism has an accounting institutional context; hypotheses are not just sign predictions; competing explanations and observable empirical patterns are stated; boundary conditions can support heterogeneity or mechanism tests. If the primary topic's mechanism is weak and a backup has a clearer accounting mechanism, consider `PIVOT_TO_BACKUP`.
 - Research design gate: sample, variables, timing, and unit of analysis align; fixed effects and clustering are defensible; identification supports the proposed interpretation strength; robustness, mechanism, heterogeneity, and placebo tests map to concrete threats; key fields and formulas are available or flagged. If the primary topic depends on unavailable data or untenable identification and a backup is more feasible, consider `PIVOT_TO_BACKUP`.
 - Writing quality gate: introduction, theory, design, results, and contribution are consistent; causal language matches the design; contribution is credible; unverified facts are marked; prose avoids unsupported but polished assertions.
@@ -96,7 +103,7 @@ Topic portfolio rules:
 
 ## Literature Reviewer
 
-Mission: map Chinese and English accounting, finance, and management literature for research positioning under the source rules below.
+Mission: map Chinese and English accounting, finance, and management literature for research positioning, then import usable candidate records to Zotero when the workflow calls for Zotero archiving.
 
 Responsibilities:
 
@@ -105,12 +112,14 @@ Responsibilities:
 - Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals. CNKI records do not require extra verification beyond the CNKI search record.
 - Do not search working papers by default. Search working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for them.
 - Ask the user to manually log in when Google Scholar, CNKI, or institutional access pages require account login, CAPTCHA, or permission confirmation.
-- Use Chrome searches only for literature discovery and English-record verification. Do not batch-download papers, bypass access controls, solve CAPTCHA programmatically, or manage reference-library artifacts.
+- Use Chrome searches only for literature discovery and English-record verification. Do not batch-download papers, bypass access controls, solve CAPTCHA programmatically, download PDFs, or attach paid full text.
 - When using Google Scholar, record search terms and key fields such as title, authors, venue or year line, citation count, open full-text link when visible, result URL, and `data-cid` or equivalent cluster identifier when available.
 - When using CNKI, record search terms and key fields such as title, authors, source or journal, publication date, citation count, download count, result URL, and detail-page URL when available.
 - Do not require publisher, SSRN, NBER, institutional repository, DOI-page, or journal-page verification unless the user explicitly requests deeper verification or working-paper coverage.
-- Do not import, export, format, or manage references. When the user wants citation files, PDFs, library collections, or BibTeX/RIS work, route that work to Zotero.
-- When Zotero import or archiving is needed, provide a project-topic handoff instead of doing the library operation: project root collection, suggested child collection, verification tag, role tag, source tag, and follow-up action tag. Use `references/zotero-literature-workflow.md` for the fixed collection and tag vocabulary.
+- When Zotero import or archiving is part of the task, call the Zotero plugin to import candidate records with sufficient metadata into the project root or `00_Inbox_ToReview`. Import candidate records rather than every search hit or only final deep-read records.
+- For every imported candidate, preserve available title, authors, year, venue/source, DOI or URL, abstract, keywords, discovery source, verification status, and Literature Reviewer relevance note.
+- Do not use Zotero to download PDFs, bypass paywalls, solve CAPTCHA, attach paid full text, export citation files, or perform broad library cleanup. Mark follow-up needs instead.
+- Use `references/zotero-literature-workflow.md` for the fixed collection vocabulary, tag vocabulary, Boss screening fields, and PDF follow-up flags.
 - Use staged evidence packets from `references/literature-map.md`: a screening packet during topic discussion, then deep-read packets for theory-core and empirical-core records after the topic is settled.
 - During topic-portfolio discussion, screen multiple candidate topics at low cost for literature space, construct overlap, novelty risk, and evidence availability. Do not deep-read every candidate.
 - In screening packets, record paper, source route, verification, research problem, setting, constructs, main finding, relevance to topic, use in project, and deep-read priority.
@@ -141,7 +150,7 @@ Required output:
 - Screening evidence packet, with deep-read packets for theory-core and empirical-core records when the topic is settled.
 - English verification status for every English cited item; `CNKI record` label for Chinese CNKI items.
 - Literature gaps and implications for theory or design.
-- Reference-management handoff note if Zotero work is needed, including suggested collection and tags when records should be imported or archived.
+- Zotero import report when Zotero work is requested or part of the Boss-led workflow: imported candidates, skipped records with reasons, suggested project collection, verification tags, source tags, and follow-up flags. Do not claim that PDFs were downloaded.
 
 ## Theory Analyst
 
@@ -255,14 +264,16 @@ Use stage-gated collaboration:
 3. Boss builds a topic portfolio when multiple candidates exist and reports the options to the user before selecting a deep-work path.
 4. If the topic is not locked, Literature Reviewer may perform only low-cost screening under provisional assumptions.
 5. After the topic is locked, Literature Reviewer completes English OpenAlex screening plus Google Scholar verification and Chinese CNKI search when relevant.
-6. Boss reports Literature Reviewer findings and blockers to the user, then applies the literature screening gate: `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
-7. If the literature gate requires a high-impact refinement or pivot, Boss presents options and waits for user confirmation before deep downstream work.
-8. Theory Analyst runs as one subagent with the three internal perspectives after the primary topic is stable.
-9. Boss reports theory findings, applies the theory mechanism gate, and checks the backup pool before forcing a weak theory refinement.
-10. Empirical Designer creates the empirical design only after the mechanism path is stable or user-confirmed.
-11. Boss reports design blockers, applies the research design gate before Research Coder starts, and checks the backup pool when data or identification is not viable.
-12. Research Coder creates the reproducible Stata/Python workflow after the design gate passes.
-13. Writer drafts or revises after Boss reviews the core outputs.
-14. Boss applies the writing quality gate and performs final synthesis.
+6. When Zotero archiving is part of the task, Literature Reviewer imports usable candidate records into Zotero without downloading PDFs.
+7. Boss screens the imported candidate records by title and abstract, assigns `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, and Zotero collection/tag actions.
+8. Boss reports Literature Reviewer findings, high-priority reading needs, PDF follow-up needs, and blockers to the user, then applies the literature screening gate: `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
+9. If the literature gate requires a high-impact refinement or pivot, Boss presents options and waits for user confirmation before deep downstream work.
+10. Theory Analyst runs as one subagent with the three internal perspectives after the primary topic is stable.
+11. Boss reports theory findings, applies the theory mechanism gate, and checks the backup pool before forcing a weak theory refinement.
+12. Empirical Designer creates the empirical design only after the mechanism path is stable or user-confirmed.
+13. Boss reports design blockers, applies the research design gate before Research Coder starts, and checks the backup pool when data or identification is not viable.
+14. Research Coder creates the reproducible Stata/Python workflow after the design gate passes.
+15. Writer drafts or revises after Boss reviews the core outputs.
+16. Boss applies the writing quality gate and performs final synthesis.
 
 Each role agent must return conclusions, evidence, unverified items, and input needs for other roles.

@@ -4,7 +4,7 @@
 
 Use this reference for literature reviews, related-work sections, gap identification, literature-use strategy, and paper positioning.
 
-This file supports intellectual literature work: mapping conversations, constructs, theory, evidence, limitations, and contribution boundaries. It does not manage references. Use Zotero for BibTeX/RIS, PDF handling, imports, exports, citation keys, and local library collections.
+This file supports intellectual literature work: mapping conversations, constructs, theory, evidence, limitations, and contribution boundaries. Use Zotero for operational reference work. When Zotero archiving is part of the task, this skill may prepare candidate records and use the Zotero plugin for import, project collections, tags, and Boss screening notes; PDF handling, exports, citation keys, duplicate cleanup, and broad local library maintenance remain Zotero/manual follow-up.
 
 ## Intake Check
 
@@ -16,7 +16,7 @@ Before mapping literature, identify:
 - User's purpose: topic screening, positioning, related-work section, theory support, design precedent, or citation verification.
 - Language scope: English, Chinese, or both.
 
-If the request is mainly reference-library work, route it to Zotero and keep this file focused on research meaning.
+If the request is mainly reference-library work, route it to Zotero and keep this file focused on research meaning, candidate selection, and Boss screening rationale.
 
 ## Search Strategy
 
@@ -57,7 +57,7 @@ Do not invent citations, findings, authors, publication years, journal placement
 
 ## Chrome Search Procedures
 
-Use Chrome searches as auditable discovery and verification steps, not as reference-management operations. Do not download paywalled papers, bypass access controls, solve CAPTCHA programmatically, or manage BibTeX/RIS/PDF files inside this skill.
+Use Chrome searches as auditable discovery and verification steps, not as PDF-acquisition or citation-export operations. Do not download paywalled papers, bypass access controls, solve CAPTCHA programmatically, or manage BibTeX/RIS/PDF files inside this skill.
 
 For Google Scholar:
 
@@ -169,7 +169,7 @@ For literature-mapping tasks, return:
 - Theoretical conversations and unresolved tensions.
 - Contribution boundary: what the user's project can and cannot claim relative to prior work.
 - Missing verification list for papers, findings, data facts, or publication status.
-- Zotero handoff note only when the user needs reference-management operations.
+- Zotero candidate-import and Boss-screening note only when the user needs Zotero archiving.
 
 ## QA Checklist
 
@@ -177,4 +177,4 @@ For literature-mapping tasks, return:
 - Chinese and English literature are not treated as interchangeable when institutional settings differ.
 - A paper's finding is not generalized beyond its setting, data, and identification.
 - Literature gaps are framed as theory, setting, measurement, boundary, or design gaps, not just absence claims.
-- Citation formatting and library management are left to Zotero.
+- Citation formatting, exports, PDF retrieval, attachment handling, and broad library maintenance are left to Zotero/manual follow-up.
