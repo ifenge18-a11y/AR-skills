@@ -21,6 +21,8 @@ Do not download PDFs, bypass paywalls, solve CAPTCHA, use institutional access w
 
 Before the first write to an Obsidian project, state the exact research-wiki project path and get user confirmation. After confirmation, later work on that same project may update the wiki by default.
 
+Read the project `AGENTS.md` when present and follow its project-specific Zotero collection layout, research-wiki path, source-note schema, and safety rules. If `AGENTS.md` explicitly authorizes direct local Zotero database updates because the local API is read-only, use that route only for the named task and only with the project's required backup, transaction, restart, and verification steps. Otherwise, leave existing-item moves, tag edits, and attachment management to Zotero/manual follow-up.
+
 ## Research Wiki Preflight
 
 For durable literature tasks:
@@ -76,6 +78,8 @@ Use these fixed fields:
 | `pdf_status` | `need_pdf`, `pdf_available`, `manual_pdf_pending`, `not_needed`, or `unknown` |
 | `project_use` | How this record should support the project: positioning, mechanism, measurement, identification, context, contrast, background, or exclusion |
 | `need_fulltext_read` | `true` for high-priority records or when abstract evidence is insufficient for the planned use; otherwise `false` |
+| `read_level` | `abstract`, `intro_design_conclusion`, or `fulltext`; defaults to `abstract` for screening-only work |
+| `deep_read_completed` | Completion date in `YYYY-MM-DD` only after a full deep read is done; otherwise blank |
 
 Screening rules:
 
@@ -140,6 +144,37 @@ Boss screening:
 - `deep_read_low`
 - `deep_read_exclude`
 
+Read progress tags are optional and secondary to research-wiki source-note frontmatter:
+
+- `deep_read_todo`
+- `deep_read_in_progress`
+- `deep_read_done`
+- `deep_read_skip`
+
+When Zotero tags conflict with source-note frontmatter, use the source note as the authority and log a Zotero sync follow-up if needed.
+
+## Research-Wiki Read State
+
+For projects using `Knowledge Base/sources/*.md`, source-note frontmatter is the authoritative read-progress record. Use these fields unless the project `AGENTS.md` defines a different schema:
+
+```yaml
+status: screened | deep_read_in_progress | deep_read_done | deep_read_skip
+deep_read_priority: high | medium | low | exclude
+need_fulltext_read: true | false
+deep_read_completed:
+read_level: abstract | intro_design_conclusion | fulltext
+```
+
+Read-state rules:
+
+- Keep `status: screened` and `read_level: abstract` for title/abstract screening only.
+- Use `status: deep_read_in_progress` only while actively reading a full text.
+- After a full deep read, set `status: deep_read_done`, `need_fulltext_read: false`, `read_level: fulltext`, and `deep_read_completed: YYYY-MM-DD`.
+- If a record will not be read further, set `status: deep_read_skip`, `need_fulltext_read: false`, and record the skip reason in the note or log.
+- Treat `deep_read_priority` as priority only, not completion state.
+
+Before starting batch screening or deep reading, scan existing source notes for `zotero_item_key`, DOI, title, `status`, `need_fulltext_read`, `read_level`, and `deep_read_completed`. Do not repeat deep reads for records marked `status: deep_read_done` unless the user explicitly asks to reread or update the note.
+
 ## Import Workflow
 
 1. Run the research-wiki preflight when the task has durable value.
@@ -149,10 +184,22 @@ Boss screening:
 5. Boss screens imported and wiki-known candidates by title and abstract using `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
 6. After Boss screening, move or tag records by project role: core papers to `01_Core_Literature`, methods or data papers to `04_Method_Data`, theory papers to `03_Theory_Mechanism`, Chinese institutional-context papers to `05_China_Context`, and related stream papers to `02_Related_Stream`.
 7. Mark high-priority records with `need_pdf` and `need_fulltext_read` unless a PDF is already available. Do not download the PDF automatically.
-8. Pass the screened records to `$research-wiki` with `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
+8. Pass the screened records to `$research-wiki` with `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
 9. Use `$research-wiki` to create or update `sources/` source notes and relevant `concepts/`, `themes/`, `methods/`, `claims/`, `index.md`, and `log.md`.
 10. Keep weak-fit records in `90_Excluded_WeakFit` and/or research-wiki source notes only when the reason for exclusion is recorded.
 11. Leave duplicate checks, metadata cleanup, DOI/journal/year fixes, citation keys, exports, PDFs, attachments, and full-text search to Zotero/manual follow-up.
+
+## Existing Zotero Item Updates
+
+When the task is to process records already in a project inbox, prefer moving and updating the original parent item rather than creating duplicate records, if the project allows it. Preserve child PDFs, EPUBs, notes, and annotations.
+
+Default safety boundary:
+
+- Use Zotero connector/API operations when they support the needed write.
+- If the local API is read-only and the project `AGENTS.md` authorizes direct database updates, first identify the real Zotero database path, quit Zotero, create a dated task backup, perform only scoped updates in one transaction, restart Zotero, and verify through the local API.
+- Never use a profile-directory placeholder database when the active library database lives elsewhere.
+- Never delete attachments or move a record to trash unless the user explicitly asks.
+- If direct updates are not authorized, output exact manual Zotero actions and still update the research wiki.
 
 ## Literature Reviewer Output
 
@@ -178,6 +225,8 @@ Each row should make clear which project the record belongs to, what role it pla
 - `00_Inbox_ToReview` should represent unfinished cleanup work and should be reviewed regularly.
 - Every record in `90_Excluded_WeakFit` must have an exclusion reason to avoid repeated screening.
 - Every `high` deep-read record should either have `pdf_available` or be marked `need_pdf` and `need_fulltext_read`.
+- Every source note should record read progress with `status`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
+- Full-text deep reads should not be repeated when the source note says `status: deep_read_done`, unless the user asks for a reread or update.
 - Records without abstracts should be marked `abstract_missing` and should not be treated as core evidence until reviewed.
 - Durable project findings should appear in the research-wiki, not only in chat.
 - Research-wiki source notes should preserve Zotero traceability through `zotero_item_key` when available.

@@ -39,13 +39,16 @@ Use `$research-wiki` by default for any task that creates or changes durable pro
 At the start of those tasks:
 
 1. Identify the project name and likely Obsidian research-wiki path.
-2. If a project wiki exists, read `index.md`, `log.md`, and relevant pages in `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` before external search or new synthesis.
-3. If no project wiki exists, recommend creating one with `$research-wiki` and binding it to the relevant Zotero collection before durable literature work.
-4. After Boss screening or any durable synthesis, call `$research-wiki` to create or update source notes and synthesis pages, then continue AR reasoning from the updated wiki state.
+2. Read the project `AGENTS.md` when present. Treat project-specific Zotero collections, research-wiki paths, local database safety rules, source-note schema, and read-state rules as binding for that project.
+3. If a project wiki exists, read `index.md`, `log.md`, and relevant pages in `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` before external search or new synthesis.
+4. If no project wiki exists, recommend creating one with `$research-wiki` and binding it to the relevant Zotero collection before durable literature work.
+5. After Boss screening or any durable synthesis, call `$research-wiki` to create or update source notes and synthesis pages, then continue AR reasoning from the updated wiki state.
 
 Do not force Obsidian writes for temporary chat, one-off conceptual explanation, narrow copyediting, or disposable brainstorming. Before the first write to an Obsidian project, state the exact project path and get user confirmation; after confirmation, later work on the same project may update that wiki by default.
 
-Use this handoff contract when passing records or decisions to `$research-wiki`: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
+Use this handoff contract when passing records or decisions to `$research-wiki`: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
+
+For source-note read progress, treat the research wiki frontmatter as the authority. Zotero tags may be helpful for filtering, but if Zotero and `Knowledge Base/sources/*.md` disagree, prefer the source note and record any needed Zotero sync as follow-up. Use `status: screened | deep_read_in_progress | deep_read_done | deep_read_skip`, `need_fulltext_read: true | false`, `read_level: abstract | intro_design_conclusion | fulltext`, and `deep_read_completed: YYYY-MM-DD` when a project has not defined a different schema.
 
 ## Boss-Led Agent Orchestration
 
@@ -287,7 +290,7 @@ For manuscript work:
 
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
 - `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
-- `references/zotero-literature-workflow.md`: default research-wiki and Zotero literature persistence workflow, Boss abstract screening fields, collection structure, tag vocabulary, Obsidian handoff fields, and manual PDF follow-up rules.
+- `references/zotero-literature-workflow.md`: default research-wiki and Zotero literature persistence workflow, Boss abstract screening fields, collection structure, tag vocabulary, Obsidian handoff fields, read-state tracking, duplicate-work prevention, Zotero update safety, and manual PDF follow-up rules.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.
 - `references/writing-workflow.md`: accounting and finance manuscript section writing workflow.
