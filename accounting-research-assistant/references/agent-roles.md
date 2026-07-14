@@ -43,7 +43,7 @@ Responsibilities:
 - Assign each candidate a fixed Boss category: `core_literature`, `related_stream`, `theory_mechanism`, `method_data`, `china_context`, or `excluded_weakfit`.
 - Assign each candidate a fixed deep-read priority: `high`, `medium`, `low`, or `exclude`.
 - Record a short `boss_screening_reason` for every `high`, `medium`, or `excluded_weakfit` record, including whether it is a direct competitor, theory source, method/data precedent, China-context source, or weak fit.
-- Convert Boss screening decisions into Zotero collection/tag actions and research-wiki handoff fields for durable literature work. High-priority records should be marked `need_pdf` and `need_fulltext_read`; records without abstracts should be marked `abstract_missing` and `need_metadata_cleanup`; excluded records should move to `90_Excluded_WeakFit` with an exclusion reason.
+- Convert Boss screening decisions into the canonical research-wiki handoff defined in `zotero-literature-workflow.md`, including `source_route` and `verification_status`. High-priority records should be marked `need_pdf` and `need_fulltext_read`; medium-priority records default to core-chapter reading; records without abstracts should be marked `abstract_missing` and `need_metadata_cleanup`; excluded records should move to `90_Excluded_WeakFit` with an exclusion reason.
 - Challenge weak causal claims, vague mechanisms, missing literature, unavailable data, incremental contributions, overclaimed novelty, and unsupported writing.
 - When a role agent finds a direct competing paper, literature shortage, variable measurement blocker, weak identification, unavailable data, or need to pivot, do not decide the pivot alone. Report the blocker, explain its impact, give a recommended path, offer concrete options, and identify what the user must confirm.
 - Enforce the scope boundary and prevent role outputs from drifting into figures, publication strategy, reviewer responses, PPTs, or reference-management operations.
@@ -58,7 +58,7 @@ Required output:
 - Primary-topic selection reason, backup-topic pool, and failure fallback triggers.
 - Agent assignments and dependencies, with every subagent displayed as `nickname (Role)`.
 - Gate decisions with reasons and required revisions or switching conditions when the decision is `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
-- Boss screening table when candidate records are imported or filed, with fields for paper, abstract-based judgment, `boss_category`, `deep_read_priority`, project use, `boss_screening_reason`, `pdf_status`, `need_fulltext_read`, Zotero action, and research-wiki action.
+- Boss screening table when candidate records are imported or filed, with fields for paper, `source_route`, `verification_status`, abstract-based judgment, `boss_category`, `deep_read_priority`, project use, `boss_screening_reason`, `pdf_status`, `need_fulltext_read`, Zotero action, and research-wiki action.
 - Research-wiki update summary for durable work, including source notes or synthesis pages created or changed.
 - High-priority reading list and manual PDF retrieval list after abstract screening.
 - Blocker reports when needed, using fields for `发现`, `影响`, `Boss 建议`, `可选路径`, and `需要用户确认`.
@@ -112,7 +112,7 @@ Responsibilities:
 - Check the project research-wiki first for prior source notes, theme pages, method pages, claim pages, known blockers, and settled screening decisions when a durable project wiki exists.
 - Use OpenAlex for preliminary English literature discovery and metadata screening.
 - Use Chrome to search Google Scholar to verify English records found through OpenAlex or otherwise used as core evidence.
-- Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals. CNKI records do not require extra verification beyond the CNKI search record.
+- Use Chrome to search CNKI for Chinese literature from CSSCI sources, especially economics and management journals. Record `source_route: cnki`; no second discovery route is required, while `verification_status` still uses the common three-value enum.
 - Do not search working papers by default. Search working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for them.
 - Ask the user to manually log in when Google Scholar, CNKI, or institutional access pages require account login, CAPTCHA, or permission confirmation.
 - Use Chrome searches only for literature discovery and English-record verification. Do not batch-download papers, bypass access controls, solve CAPTCHA programmatically, download PDFs, or attach paid full text.
@@ -125,9 +125,9 @@ Responsibilities:
 - Use `references/zotero-literature-workflow.md` for the research-wiki preflight, fixed collection vocabulary, tag vocabulary, Boss screening fields, Obsidian handoff fields, and PDF follow-up flags.
 - Use staged evidence packets from `references/literature-map.md`: a screening packet during topic discussion, then deep-read packets for theory-core and empirical-core records after the topic is settled.
 - During topic-portfolio discussion, screen multiple candidate topics at low cost for literature space, construct overlap, novelty risk, and evidence availability. Do not deep-read every candidate.
-- In screening packets, record paper, source route, verification, research problem, setting, constructs, main finding, relevance to topic, use in project, and deep-read priority.
+- In screening packets, record paper, `source_route`, `verification_status`, research problem, setting, constructs, main finding, relevance to topic, use in project, `deep_read_role`, and `deep_read_priority`.
 - In deep-read packets, record mechanism chain, competing explanations, boundary conditions, data and sample, variables, identification strategy, empirical tests, limitations, and implications for the user's project.
-- For English records, mark verification status as `verified`, `partially verified`, or `unverified` based on Google Scholar verification. For Chinese CNKI records, mark `CNKI record` rather than requiring an extra verification label.
+- For every route, use `verification_status: verified | partially_verified | unverified`. For Chinese results, record `source_route: cnki`; no second discovery route is required, but provenance must not replace verification status.
 - Never invent papers, authors, findings, journal placements, sample sizes, or publication years.
 
 Priority English journals:
@@ -151,7 +151,7 @@ Required output:
 
 - Search terms, sources checked, and search route used: OpenAlex, Google Scholar, CNKI, and any user-requested working-paper source.
 - Screening evidence packet, with deep-read packets for theory-core and empirical-core records when the topic is settled.
-- English verification status for every English cited item; `CNKI record` label for Chinese CNKI items.
+- `source_route` and `verification_status` for every cited or screened item.
 - Literature gaps and implications for theory or design.
 - Zotero import report for durable literature work: imported candidates, skipped records with reasons, suggested project collection, verification tags, source tags, and follow-up flags. Do not claim that PDFs were downloaded.
 - Research-wiki filing candidates: records or claims that should update `sources/`, `themes/`, `concepts/`, `methods/`, or `claims/`.
@@ -269,7 +269,7 @@ Use stage-gated collaboration:
 4. If the topic is not locked, Literature Reviewer may perform only low-cost screening under provisional assumptions.
 5. After the topic is locked, Literature Reviewer checks the project research-wiki, then completes English OpenAlex screening plus Google Scholar verification and Chinese CNKI search when relevant.
 6. For durable literature work, Literature Reviewer imports usable new candidate records into Zotero without downloading PDFs.
-7. Boss screens imported and wiki-known candidate records by title and abstract, assigns `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, Zotero collection/tag actions, and research-wiki actions.
+7. Boss screens imported and wiki-known candidate records by title and abstract, assigns the canonical handoff fields from `zotero-literature-workflow.md`, Zotero collection/tag actions, and research-wiki actions.
 8. Boss uses `$research-wiki` to update durable source notes or synthesis pages after screening when the project path is confirmed.
 9. Boss reports Literature Reviewer findings, high-priority reading needs, PDF follow-up needs, research-wiki updates, and blockers to the user, then applies the literature screening gate: `PROCEED`, `REFINE`, `PIVOT`, or `PIVOT_TO_BACKUP`.
 10. If the literature gate requires a high-impact refinement or pivot, Boss presents options and waits for user confirmation before deep downstream work.

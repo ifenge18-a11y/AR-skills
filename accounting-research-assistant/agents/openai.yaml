@@ -1,4 +1,4 @@
 interface:
   display_name: "Accounting Research Assistant"
   short_description: "Stage-gated accounting research with evidence-aware Obsidian capture"
-  default_prompt: "Use $accounting-research-assistant in Boss-led stage-gated mode to turn my accounting research question into a rigorous literature, theory, identification, data, code, and writing plan. Use the project Obsidian research-wiki for verified durable literature and synthesis knowledge; use Research Base only when the project or user explicitly enables exploratory research persistence."
+  default_prompt: "Use $accounting-research-assistant to develop my accounting research question through literature, theory, identification, data, code, and writing in the ordinary single-agent workflow. Use the configured project Knowledge Base for verified durable knowledge; use Research Base only when the project or user explicitly enables exploratory persistence."

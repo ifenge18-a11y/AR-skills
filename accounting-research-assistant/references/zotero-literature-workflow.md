@@ -21,14 +21,16 @@ Do not download PDFs, bypass paywalls, solve CAPTCHA, use institutional access w
 
 Before the first write to an Obsidian project, state the exact research-wiki project path and get user confirmation. After confirmation, later work on that same project may update the wiki by default.
 
-Read the project `AGENTS.md` when present and follow its project-specific Zotero collection layout, research-wiki path, source-note schema, and safety rules. If `AGENTS.md` explicitly authorizes direct local Zotero database updates because the local API is read-only, use that route only for the named task and only with the project's required backup, transaction, restart, and verification steps. Otherwise, leave existing-item moves, tag edits, and attachment management to Zotero/manual follow-up.
+Read project `AGENTS.md` and `.research-wiki/config.json` when present. `AGENTS.md` controls policy and schema; config supplies the machine-readable `knowledge_base_path` and `research_base_path`. Use explicit CLI path arguments only as one-command overrides.
+
+AR may perform user-authorized collection, tag, note, and import operations through an available Zotero connector or supported API. `$research-wiki` is always read-only with respect to Zotero. Never edit Zotero SQLite files. When no supported write channel is available, return an exact manual checklist naming the existing item, target collection, tags or note changes, duplicate check, and verification step; still complete any independent research-wiki work.
 
 ## Research Wiki Preflight
 
 For durable literature tasks:
 
 1. Identify `project` and the likely research-wiki project path.
-2. If the wiki exists, read `index.md`, `log.md`, and relevant pages from `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/`.
+2. Resolve `knowledge_base_path` from `.research-wiki/config.json` (default `.`). If the wiki exists, read its `index.md`, `log.md`, and relevant pages from `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/`.
 3. Use the wiki to avoid rediscovering already-screened literature, stale claims, known PDF blockers, and settled project decisions.
 4. If no wiki exists, recommend initializing one with `$research-wiki` and binding it to the relevant Zotero collection before heavy literature work.
 5. Skip wiki persistence only for temporary chat, one-off conceptual explanation, narrow copyediting, or disposable brainstorming.
@@ -59,7 +61,8 @@ Literature Reviewer should preserve these fields when available:
 - DOI, OpenAlex URL, Google Scholar result URL or cluster id, CNKI detail URL, publisher URL, or other stable source URL.
 - Abstract and keywords.
 - Discovery source and search terms.
-- Verification status.
+- `source_route`: where the record was discovered or checked.
+- `verification_status`: `verified`, `partially_verified`, or `unverified`, including for CNKI records.
 - Literature Reviewer relevance note.
 
 Skip records that are obviously unrelated, duplicate search artifacts, or too incomplete to identify. Report skipped records with a short reason.
@@ -77,7 +80,7 @@ Use these fixed fields:
 | `boss_screening_reason` | One concise reason tied to direct competition, theory, method/data, China context, background use, or weak fit |
 | `pdf_status` | `need_pdf`, `pdf_available`, `manual_pdf_pending`, `not_needed`, or `unknown` |
 | `project_use` | How this record should support the project: positioning, mechanism, measurement, identification, context, contrast, background, or exclusion |
-| `need_fulltext_read` | `true` for high-priority records or when abstract evidence is insufficient for the planned use; otherwise `false` |
+| `need_fulltext_read` | Defaults to `true` for `high` and `medium`, and `false` for `low` and `exclude`; allow an explicit evidence-based override except for `exclude` |
 | `read_level` | `abstract`, `intro_design_conclusion`, or `fulltext`; defaults to `abstract` for screening-only work |
 | `deep_read_completed` | Completion date in `YYYY-MM-DD` only after a full deep read is done; otherwise blank |
 
@@ -90,14 +93,14 @@ Screening rules:
 - Use `china_context` for Chinese institutional context, A-share, regulation, audit, disclosure, or governance setting papers.
 - Use `excluded_weakfit` for records that should not be used; record the exclusion reason.
 - Mark direct competitors, core theory sources, and key variable/method sources as `high`.
-- Mark useful but non-central sources as `medium`; background-only sources as `low`; weak-fit records as `exclude`.
+- Mark useful but non-central sources as `medium`; they still require the core chapters unless explicitly waived. Mark background-only sources as `low`; weak-fit records as `exclude`.
 - If the abstract is missing, do not make a strong research-value judgment. Add `abstract_missing` and `need_metadata_cleanup`, keep the record in `00_Inbox_ToReview`, and set `pdf_status` to `unknown` unless other evidence supports a stronger action.
 
 ## Tag System
 
 Use collections for stable project structure and tags for cross-cutting attributes. Apply only tags that are supported by the discovery, verification, or Boss screening record.
 
-Verification status:
+`verification_status`:
 
 - `verified`
 - `partially_verified`
@@ -113,7 +116,7 @@ Project role:
 - `replication_candidate`
 - `excluded`
 
-Discovery or verification source:
+`source_route` tags:
 
 - `source_openalex`
 - `source_google_scholar`
@@ -155,7 +158,7 @@ When Zotero tags conflict with source-note frontmatter, use the source note as t
 
 ## Research-Wiki Read State
 
-For projects using `Knowledge Base/sources/*.md`, source-note frontmatter is the authoritative read-progress record. Use these fields unless the project `AGENTS.md` defines a different schema:
+For projects using `<knowledge_base_path>/sources/*.md`, source-note frontmatter is the authoritative read-progress record. Use these fields unless project `AGENTS.md` defines a different schema:
 
 ```yaml
 status: screened | deep_read_in_progress | deep_read_done | deep_read_skip
@@ -163,6 +166,8 @@ deep_read_priority: high | medium | low | exclude
 need_fulltext_read: true | false
 deep_read_completed:
 read_level: abstract | intro_design_conclusion | fulltext
+source_route: openalex | google_scholar | cnki | publisher | ssrn | nber | user | manual | unknown
+verification_status: verified | partially_verified | unverified
 ```
 
 Read-state rules:
@@ -172,6 +177,7 @@ Read-state rules:
 - After a full deep read, set `status: deep_read_done`, `need_fulltext_read: false`, `read_level: fulltext`, and `deep_read_completed: YYYY-MM-DD`.
 - If a record will not be read further, set `status: deep_read_skip`, `need_fulltext_read: false`, and record the skip reason in the note or log.
 - Treat `deep_read_priority` as priority only, not completion state.
+- Treat `source_route`, `verification_status`, and `read_level` as independent provenance, verification, and evidence-depth dimensions.
 
 Before starting batch screening or deep reading, scan existing source notes for `zotero_item_key`, DOI, title, `status`, `need_fulltext_read`, `read_level`, and `deep_read_completed`. Do not repeat deep reads for records marked `status: deep_read_done` unless the user explicitly asks to reread or update the note.
 
@@ -180,11 +186,11 @@ Before starting batch screening or deep reading, scan existing source notes for 
 1. Run the research-wiki preflight when the task has durable value.
 2. Literature Reviewer searches, verifies, and prepares candidate records with abstracts when available, using the wiki to avoid duplicate screening.
 3. Import usable new candidates into the project root or `00_Inbox_ToReview` when they should enter Zotero.
-4. Tag each record with verification status, source, and immediate follow-up actions such as `need_duplicate_check` or `need_metadata_cleanup`.
+4. Record `verification_status`, `source_route`, and immediate follow-up actions such as `need_duplicate_check` or `need_metadata_cleanup`.
 5. Boss screens imported and wiki-known candidates by title and abstract using `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
 6. After Boss screening, move or tag records by project role: core papers to `01_Core_Literature`, methods or data papers to `04_Method_Data`, theory papers to `03_Theory_Mechanism`, Chinese institutional-context papers to `05_China_Context`, and related stream papers to `02_Related_Stream`.
-7. Mark high-priority records with `need_pdf` and `need_fulltext_read` unless a PDF is already available. Do not download the PDF automatically.
-8. Pass the screened records to `$research-wiki` with `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
+7. Keep `need_fulltext_read: true` for `high` and `medium` by default. If the required full text is unavailable, use `need_pdf` or `manual_pdf_pending`; do not download the PDF automatically.
+8. Pass the screened records to `$research-wiki` with the canonical handoff: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, `deep_read_completed`, `source_route`, and `verification_status`.
 9. Use `$research-wiki` to create or update `sources/` source notes and relevant `concepts/`, `themes/`, `methods/`, `claims/`, `index.md`, and `log.md`.
 10. Keep weak-fit records in `90_Excluded_WeakFit` and/or research-wiki source notes only when the reason for exclusion is recorded.
 11. Leave duplicate checks, metadata cleanup, DOI/journal/year fixes, citation keys, exports, PDFs, attachments, and full-text search to Zotero/manual follow-up.
@@ -195,11 +201,10 @@ When the task is to process records already in a project inbox, prefer moving an
 
 Default safety boundary:
 
-- Use Zotero connector/API operations when they support the needed write.
-- If the local API is read-only and the project `AGENTS.md` authorizes direct database updates, first identify the real Zotero database path, quit Zotero, create a dated task backup, perform only scoped updates in one transaction, restart Zotero, and verify through the local API.
-- Never use a profile-directory placeholder database when the active library database lives elsewhere.
+- Use only an available connector or supported API for authorized Zotero writes.
+- Never edit Zotero SQLite files or invent an unsupported write route.
 - Never delete attachments or move a record to trash unless the user explicitly asks.
-- If direct updates are not authorized, output exact manual Zotero actions and still update the research wiki.
+- If no write channel is available, output exact manual actions for each existing item: target collection, tags to add/remove, screening note content, duplicate check, and the final verification view. Still update the research wiki when that write is independently authorized.
 
 ## Literature Reviewer Output
 
@@ -212,10 +217,10 @@ Keep "Suggested Zotero action" descriptive, such as `import candidate`, `skip we
 
 After Boss screening, provide this table:
 
-| Record | Abstract-based judgment | boss_category | deep_read_priority | Project use | boss_screening_reason | pdf_status | need_fulltext_read | Zotero action | Research-wiki action |
-|---|---|---|---|---|---|---|---|---|---|
+| Record | source_route | verification_status | Abstract-based judgment | boss_category | deep_read_priority | Project use | boss_screening_reason | pdf_status | need_fulltext_read | Zotero action | Research-wiki action |
+|---|---|---|---|---|---|---|---|---|---|---|---|
 
-Each row should make clear which project the record belongs to, what role it plays, whether its bibliographic facts are verified, why Boss classified it that way, and whether the user must obtain a PDF manually.
+Each row should make clear which project the record belongs to, its `source_route`, its `verification_status`, what role it plays, why Boss classified it that way, and whether the user must obtain a PDF manually.
 
 ## Acceptance Criteria
 
@@ -225,6 +230,7 @@ Each row should make clear which project the record belongs to, what role it pla
 - `00_Inbox_ToReview` should represent unfinished cleanup work and should be reviewed regularly.
 - Every record in `90_Excluded_WeakFit` must have an exclusion reason to avoid repeated screening.
 - Every `high` deep-read record should either have `pdf_available` or be marked `need_pdf` and `need_fulltext_read`.
+- Every `medium` record defaults to `need_fulltext_read: true` for abstract, introduction, research design, and conclusion unless the screening record explicitly documents why those chapters are unnecessary.
 - Every source note should record read progress with `status`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
 - Full-text deep reads should not be repeated when the source note says `status: deep_read_done`, unless the user asks for a reread or update.
 - Records without abstracts should be marked `abstract_missing` and should not be treated as core evidence until reviewed.

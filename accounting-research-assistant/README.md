@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v1.1.0`
+Current version: `v1.2.0`
 
-当前版本：`v1.1.0`
+当前版本：`v1.2.0`
 
 ## Overview / 概览
 
@@ -12,32 +12,36 @@ Current version: `v1.1.0`
 
 `accounting-research-assistant` 是一个面向会计学、金融学和财务管理研究的 Codex Skill，用于帮助研究者从宽泛研究兴趣出发，逐步形成研究问题、文献定位、理论机制、实证设计、数据方案、可复现代码计划和论文写作文本。
 
-It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development. Verified durable literature and synthesis work flows through the project Obsidian research-wiki by default; v1.1.0 adds an explicit Research Base path for exploratory material that is not yet ready for the Knowledge Base.
+It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development. Verified durable literature and synthesis work flows through the configured project Knowledge Base by default; Research Base remains an explicit opt-in for exploratory material.
 
-该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。已核验的长期文献与综合判断默认进入项目 Obsidian research-wiki；v1.1.0 增加仅在明确启用时使用的 Research Base，用于尚未进入 Knowledge Base 的探索性内容。
+该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。已核验的长期文献与综合判断默认进入项目配置的 Knowledge Base；Research Base 仍只在明确启用时用于探索性内容。
 
-## What's New in v1.1.0 / 当前版本改动
+## What's New in v1.2.0 / 当前版本改动
 
-- Added an opt-in Research Base workflow for candidate topics, conversation notes, method prototypes, data-feasibility checks, design alternatives, and transparent retained decision history.
-- Separated the evidence boundary: Zotero remains the reference layer; research-wiki Knowledge Base holds source-traceable or verified knowledge; Research Base holds explicitly labelled exploratory work.
-- Added mandatory read-before-write, exact-path confirmation, metadata, index/log, no-duplicate-source-note, archive, and promotion checks for Research Base.
-- Restricted promotion to explicit user instruction or project `AGENTS.md` authorization; promoted notes retain their original reasoning and reciprocal Knowledge Base links.
-- Added maintainer acceptance scenarios for non-opt-in behavior, prototypes, source authority, promotion, archiving, and local language rules.
+- Uses `.research-wiki/config.json` instead of hard-coded Knowledge Base or Research Base paths, while project `AGENTS.md` remains the policy authority.
+- Expands the AR-to-research-wiki handoff to preserve all screening fields plus `source_route` and `verification_status`; `deep_read_priority` is now only `high`, `medium`, `low`, or `exclude`, while literature role uses `deep_read_role`.
+- Keeps provenance, verification, and reading depth separate. CNKI is `source_route: cnki` and uses the same `verified | partially_verified | unverified` verification status as every other route.
+- Uses safe `refresh-source-note` for Zotero metadata and annotation changes, preserving deep-read state, completion dates, and manual research sections.
+- Makes ordinary single-agent work the default; Boss-led or multi-agent work starts only when the user explicitly requests it.
+- Allows authorized Zotero writes only through an available connector or supported API; SQLite editing is prohibited, with exact manual actions returned when no write channel exists.
+- Adds terminal Research Base fields: `promoted_at`, `superseded_by`, and `decision_reason`.
 
 中文说明：
 
-- 增加显式启用的 Research Base 工作流，用于候选选题、讨论记录、方法原型、数据可行性、设计备选和可追溯的决策历史。
-- 明确证据边界：Zotero 仍是引用层；research-wiki Knowledge Base 保存可追溯或已核验知识；Research Base 保存明确标记的探索性内容。
-- 为 Research Base 增加读后写前检查、准确路径确认、元数据、index/log、禁止重复 source note、归档和升级检查。
-- 仅在用户明确要求或项目 `AGENTS.md` 授权后升级内容；升级笔记保留原始推理与 Knowledge Base 的双向链接。
-- 增加未启用、原型、来源权威、升级、归档及本地语言规则等维护者验收场景。
+- 使用 `.research-wiki/config.json` 解析 Knowledge Base/Research Base 路径，项目 `AGENTS.md` 继续作为政策权威。
+- AR 到 research-wiki 的交接保留全部筛选字段，并增加 `source_route` 与 `verification_status`；`deep_read_priority` 仅允许四值，文献角色改用 `deep_read_role`。
+- 区分来源路径、核验状态和阅读深度；CNKI 使用 `source_route: cnki`，核验状态仍统一为三值枚举。
+- Zotero 元数据和注释变化使用安全 `refresh-source-note`，保留精读状态、完成日期和人工研究章节。
+- 默认普通单 Agent；只有用户明确要求时才启动 Boss-led 或多 Agent。
+- Zotero 授权写入只通过可用 connector/API；禁止修改 SQLite，无写通道时返回精确人工操作清单。
+- Research Base 终态增加 `promoted_at`、`superseded_by` 和 `decision_reason`。
 
 ## What's New in v1.0.0 / 当前版本改动
 
 - Made `accounting-research-assistant` the research-control layer and `$research-wiki` the default persistent Obsidian knowledge layer for durable literature, theory, design, variable, method, and claim work.
 - Added a default preflight for project knowledge: read `index.md`, `log.md`, and relevant `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` pages before external literature search when a project wiki exists.
 - Updated the literature workflow so AR-skill checks Obsidian first, searches external sources second, screens Zotero candidates with Boss judgment, and files useful source notes or synthesis back through `$research-wiki`.
-- Added the AR-to-research-wiki handoff fields: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
+- Established the AR-to-research-wiki handoff, now governed by the expanded canonical contract in `references/zotero-literature-workflow.md`.
 - Kept first-write safety: before writing to an Obsidian project for the first time, the assistant must state the exact project path and get user confirmation.
 
 中文说明：
@@ -45,7 +49,7 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 - 将 `accounting-research-assistant` 明确为研究总控层，将 `$research-wiki` 设为默认 Obsidian 知识沉淀层，用于有长期价值的文献、理论、设计、变量、方法和 claim 工作。
 - 增加项目知识库预检：如果项目 wiki 已存在，外部检索前先读取 `index.md`、`log.md` 以及相关 `sources/`、`themes/`、`concepts/`、`methods/`、`claims/` 页面。
 - 更新文献流程：AR-skill 先查 Obsidian，再检索外部来源；Boss 筛选 Zotero 候选文献后，通过 `$research-wiki` 回写 source note 或综合页面。
-- 增加 AR 到 research-wiki 的固定交接字段：`project`、`zotero_item_key`、`boss_category`、`deep_read_priority`、`boss_screening_reason`、`pdf_status`、`project_use` 和 `need_fulltext_read`。
+- 建立 AR 到 research-wiki 的交接；当前字段以 `references/zotero-literature-workflow.md` 的扩展权威契约为准。
 - 保留首次写入安全规则：首次写入某个 Obsidian 项目前，必须说明确切项目路径并获得用户确认。
 
 ## What's New in v0.1.8 / 历史版本改动
@@ -115,7 +119,7 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 - Added Boss-led multi-agent support for complex research planning, with roles for literature review, theory, empirical design, coding plans, writing, and final critical review.
 - Strengthened the Literature Reviewer workflow for bilingual literature discovery and verification.
 - Added clearer guidance for using OpenAlex, Google Scholar, CNKI, publisher pages, SSRN, NBER, institutional repositories, DOI pages, and CNKI detail pages as complementary literature routes.
-- Added more explicit verification labels: `verified`, `partially verified`, and `unverified`.
+- Added verification labels, now normalized as `verified`, `partially_verified`, and `unverified`.
 - Clarified the boundary between research interpretation and reference-library management: Zotero handles citation files, imports, exports, PDFs, and collections.
 - Clarified access and ethics boundaries: the skill does not bypass paywalls, institutional access controls, CAPTCHA, or website anti-automation systems.
 
@@ -126,7 +130,7 @@ It is especially suited for accounting papers, A-share empirical studies, audit 
 - 增加 Boss-led 多 Agent 研究团队模式，用于复杂研究计划，覆盖文献综述、理论分析、实证设计、代码方案、写作整合和最终批判审查。
 - 强化 Literature Reviewer 的中英文文献发现和核验流程。
 - 明确 OpenAlex、Google Scholar、CNKI、出版商页面、SSRN、NBER、机构库、DOI 页面和 CNKI 详情页之间的互补检索路线。
-- 增加更清晰的文献真实性标签：`verified`、`partially verified`、`unverified`。
+- 增加文献核验标签，当前统一为 `verified`、`partially_verified`、`unverified`。
 - 明确研究解释和引用库管理的边界：Zotero 负责题录、导入导出、PDF 和 collection 管理。
 - 明确访问和研究伦理边界：该 Skill 不绕过付费墙、机构权限、验证码或网站反自动化机制。
 
@@ -160,7 +164,7 @@ For durable project work, AR-skill first checks the project research-wiki, then 
 
 对于有长期项目价值的工作，AR-skill 先检查项目 research-wiki，再检索外部来源、筛选文献，并通过 `$research-wiki` 把有用的 source note 或综合判断写回 Obsidian。
 
-Literature Reviewer uses staged evidence packets. During topic discussion, it uses screening granularity to record each paper's verification status, research problem, setting, constructs, main finding, relevance to the topic, project use, and deep-read priority. After the topic is settled, theory-core and empirical-core papers are upgraded to deep-read granularity for mechanisms, competing explanations, boundary conditions, data, variables, identification, tests, limitations, and project implications.
+Literature Reviewer uses staged evidence packets. During topic discussion, it records `source_route`, `verification_status`, `deep_read_role`, and `deep_read_priority` alongside research meaning and project use. After the topic is settled, core-role papers are upgraded to deep-read granularity for mechanisms, competing explanations, boundary conditions, data, variables, identification, tests, limitations, and project implications.
 
 Literature Reviewer 使用分阶段信息包。选题讨论阶段采用筛选粒度，记录每篇文献的核验状态、研究问题、设定、核心构念、主要发现、与选题的关系、项目用途和精读优先级。选题确定后，对理论核心和实证核心文献升级为精读粒度，提取机制链条、竞争解释、边界条件、数据、变量、识别、检验、局限和对本项目的启发。
 
@@ -168,7 +172,7 @@ Recommended routes:
 
 - OpenAlex for preliminary English literature discovery and metadata screening.
 - Google Scholar for English record verification after OpenAlex screening, including visible publication metadata, citation signals, and recency checks.
-- CNKI for Chinese literature, especially CSSCI and core accounting, finance, management, and economics journals; CNKI records do not require extra verification.
+- CNKI for Chinese literature as `source_route: cnki`; no second discovery route is required, while `verification_status` still uses the common three values.
 - Working papers, SSRN, NBER, publisher pages, institutional repositories, DOI pages, and journal pages only when the user explicitly asks for working-paper coverage or deeper verification.
 
 推荐路线：
@@ -186,9 +190,9 @@ For durable literature work, use the project-topic candidate-import model: one r
 
 对于有长期价值的文献工作，采用“项目-主题型候选题录导入”模型：每个研究项目一个 Zotero 根 collection，下面使用 `00_Inbox_ToReview`、`01_Core_Literature`、`04_Method_Data`、`90_Excluded_WeakFit` 等固定子目录，并用 tag 标记核验状态、文献作用、来源、Boss 筛选分类、精读优先级和后续动作。当新文献应进入引用库时，Literature Reviewer 通过 Zotero 插件导入可用候选题录；Boss 再根据标题和摘要筛选哪些文献需要精读，以及哪些 research-wiki 页面需要更新。
 
-Boss screening uses fixed fields: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`. High-priority records should be marked `need_pdf` and `need_fulltext_read` unless a PDF is already available. PDF retrieval, paid access, CAPTCHA, institutional login, duplicate cleanup, citation keys, exports, and full-text attachments remain manual or later Zotero follow-up work.
+Boss screening uses the canonical handoff in `references/zotero-literature-workflow.md`, including `project`, `zotero_item_key`, screening fields, read state, `source_route`, and `verification_status`. High and medium records default to further reading; safe metadata updates use `refresh-source-note`. PDF retrieval, paid access, CAPTCHA, institutional login, duplicate cleanup, citation keys, exports, and full-text attachments remain manual or later Zotero follow-up work.
 
-Boss 筛选使用固定字段：`project`、`zotero_item_key`、`boss_category`、`deep_read_priority`、`boss_screening_reason`、`pdf_status`、`project_use` 和 `need_fulltext_read`。高优先级文献应标记 `need_pdf` 和 `need_fulltext_read`，除非 PDF 已经可用。PDF 获取、付费访问、验证码、机构登录、重复项清理、citation key、导出和全文附件仍由人工或后续 Zotero 流程处理。
+Boss 筛选以 `references/zotero-literature-workflow.md` 的权威交接为准，包含项目、Zotero key、筛选字段、阅读状态、`source_route` 和 `verification_status`。high/medium 默认需要后续阅读；元数据更新使用安全 `refresh-source-note`。PDF 获取、付费访问、验证码、机构登录、重复项清理、citation key、导出和全文附件仍由人工或后续 Zotero 流程处理。
 
 ## Boss-Led Multi-Agent Mode / Boss-Led 多 Agent 模式
 

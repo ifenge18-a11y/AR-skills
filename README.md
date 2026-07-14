@@ -9,28 +9,34 @@
 ## Main Skill
 
 - Skill name: `accounting-research-assistant`
-- Version: `v1.1.0`
+- Version: `v1.2.0`
 - Primary audience: accounting, finance, financial management, audit, disclosure, governance, ESG, capital markets, and China A-share empirical researchers.
 
-## Accounting Research Assistant v1.1.0
+## Accounting Research Assistant v1.2.0
 
-Version `v1.1.0` adds an explicit Research Base workflow for research work that is persistent but not yet evidence-grounded enough for the project Knowledge Base. It is activated only by a project `AGENTS.md` rule or an explicit user request, and its first write requires an exact-path confirmation. Research Base preserves candidate topics, conversation notes, method prototypes, data-feasibility checks, design alternatives, and rejected or superseded paths with explicit evidence labels.
+Version `v1.2.0` aligns AR with `research-wiki v0.2.0`: configured Knowledge Base/Research Base paths, lossless source-note handoff and refresh, separated provenance/verification/read depth, and ordinary single-agent work by default. Research Base remains explicit opt-in.
 
-`v1.1.0` 增加显式启用的 Research Base 工作流，用于需要长期保留、但尚不足以进入项目 Knowledge Base 的研究工作。它只有在项目 `AGENTS.md` 规则或用户明确请求时才启用，首次写入仍须确认准确路径。Research Base 保存带有明确证据标签的候选选题、讨论记录、方法原型、数据可行性、设计备选和被否决或替代的方案。
+`v1.2.0` 与 `research-wiki v0.2.0` 对齐：使用配置化 Knowledge Base/Research Base 路径、无损 source-note 交接与刷新、分离来源/核验/阅读深度，并默认普通单 Agent。Research Base 仍只在明确启用时使用。
 
 Key updates:
 
-- Keeps Zotero authoritative for reference management, research-wiki Knowledge Base for source-traceable or verified knowledge, and Research Base for opt-in exploratory work.
-- Requires Research Base preflight, evidence status, index/log maintenance, links rather than duplicate source notes, and transparent archive history.
-- Allows promotion only through explicit user instruction or project authorization, after verification and reciprocal Knowledge Base/Research Base links.
-- Documents acceptance scenarios for no-opt-in behavior, prototype filing, source authority, promotion, archiving, and project language rules.
+- Resolves `knowledge_base_path` and `research_base_path` from `.research-wiki/config.json`; project `AGENTS.md` remains the policy authority.
+- Preserves the full canonical handoff, including screening fields, `source_route`, `verification_status`, read state, and safe `refresh-source-note` behavior.
+- Restricts `deep_read_priority` to `high | medium | low | exclude`; literature roles use `deep_read_role`.
+- Uses the same verification enum for every route, including CNKI, and keeps route, verification, and read depth separate.
+- Starts Boss-led or multi-agent work only on explicit user request.
+- Uses Zotero connector/API writes only when supported and authorized; never edits SQLite, and otherwise returns exact manual actions.
+- Requires `promoted_at`, `superseded_by`, or `decision_reason` for the matching Research Base terminal state.
 
 主要更新：
 
-- 保持 Zotero 的引用管理权威、research-wiki Knowledge Base 的可追溯或已核验知识权威，以及 Research Base 的可选探索性工作边界。
-- 要求 Research Base 预检、证据状态、index/log 维护、链接而非重复 source note，以及透明的归档历史。
-- 仅在明确用户指令或项目授权后，且完成核验与双向链接后，才能升级到 Knowledge Base。
-- 记录未启用、原型归档、来源权威、升级、归档和项目语言规则的验收场景。
+- 从 `.research-wiki/config.json` 解析双库路径，项目 `AGENTS.md` 继续作为政策权威。
+- 保留完整权威交接，包括筛选字段、`source_route`、`verification_status`、阅读状态和安全刷新。
+- `deep_read_priority` 仅允许四值；文献角色使用 `deep_read_role`。
+- 所有来源（包括 CNKI）使用同一核验枚举，并分离来源、核验和阅读深度。
+- Boss-led/多 Agent 仅在用户明确要求时启动。
+- Zotero 只通过受支持且已授权的 connector/API 写入；禁止修改 SQLite，否则返回精确人工操作清单。
+- Research Base 终态要求对应的 `promoted_at`、`superseded_by` 或 `decision_reason`。
 
 ## Accounting Research Assistant v1.0.0
 
@@ -42,7 +48,7 @@ Key updates:
 
 - Default research-wiki preflight before durable literature work: read `index.md`, `log.md`, and relevant source/synthesis pages when a project wiki exists.
 - Default persistence after Boss screening or synthesis: update source notes and relevant `concepts/`, `themes/`, `methods/`, and `claims/` pages through `$research-wiki`.
-- Fixed AR-to-research-wiki handoff fields: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, and `need_fulltext_read`.
+- Established the AR-to-research-wiki handoff, now governed by the expanded canonical contract in the skill reference.
 - Zotero remains the reference-management layer; research-wiki remains the Obsidian knowledge layer; AR-skill remains responsible for research judgment.
 - First writes to an Obsidian project still require explicit project-path confirmation.
 
@@ -50,7 +56,7 @@ Key updates:
 
 - 有长期价值的文献工作默认先做 research-wiki 预检：如果项目 wiki 已存在，先读取 `index.md`、`log.md` 和相关 source/synthesis 页面。
 - Boss 筛选或综合判断后，默认通过 `$research-wiki` 更新 source notes 以及相关 `concepts/`、`themes/`、`methods/`、`claims/` 页面。
-- 固定 AR 到 research-wiki 的交接字段：`project`、`zotero_item_key`、`boss_category`、`deep_read_priority`、`boss_screening_reason`、`pdf_status`、`project_use` 和 `need_fulltext_read`。
+- 建立 AR 到 research-wiki 的交接，当前字段以 skill reference 中的扩展权威契约为准。
 - Zotero 仍是引用管理层；research-wiki 仍是 Obsidian 知识库层；AR-skill 仍负责研究判断。
 - 首次写入某个 Obsidian 项目前，仍需明确项目路径并获得确认。
 
@@ -77,7 +83,7 @@ It can help plan and synthesize searches across:
 - CNKI for Chinese literature, especially CSSCI and core accounting, finance, management, and economics journals.
 - Working papers, SSRN, NBER, publisher pages, institutional repositories, DOI pages, and journal pages only when explicitly requested or needed for deeper verification.
 
-The skill does not invent citation facts. Literature records should be marked as `verified`, `partially verified`, `unverified`, or `CNKI record` depending on the evidence available.
+The skill does not invent citation facts. Every record uses `verification_status: verified | partially_verified | unverified`; CNKI is represented separately as `source_route: cnki`.
 
 ## Boundaries
 

@@ -42,7 +42,7 @@ Use this order for literature discovery and persistence:
 1. Research-wiki preflight: if a project wiki exists, read `index.md`, `log.md`, and relevant `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` pages before external search. If no wiki exists and the task has durable value, recommend creating one and binding it to a Zotero collection.
 2. OpenAlex preliminary search: use OpenAlex to identify candidate English works, authors, venues, years, DOI metadata, citation links, and related concepts. Treat OpenAlex as a discovery and metadata source, not final proof of publication facts.
 3. Google Scholar English verification: use Chrome to search Google Scholar to verify English records that came from OpenAlex or are otherwise used as core evidence. Record visible metadata and citation signals. If Google Scholar asks for login, CAPTCHA, or unusual traffic confirmation, stop and ask the user to complete it manually.
-4. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. CNKI records do not require extra verification beyond the CNKI search record. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
+4. CNKI Chinese search: use Chrome to search CNKI for Chinese CSSCI literature. Record `source_route: cnki`; no second discovery source is required, but still assign the same three-value `verification_status` based on what the visible CNKI record supports. If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to complete it manually.
 5. Working-paper search: skip by default. Search SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for working papers or deeper working-paper coverage.
 6. Research-wiki filing: after Boss screening or synthesis, pass project-use decisions to `$research-wiki` so useful sources and cross-paper claims are stored in Obsidian rather than left only in chat.
 
@@ -58,7 +58,7 @@ Priority English accounting journals:
 
 Priority Chinese sources: CNKI CSSCI journals, especially economics and management journals such as Economic Research Journal, Management World, Accounting Research, Management Review, Journal of Financial Research, and China Industrial Economics.
 
-Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If an English record cannot be verified through Google Scholar, label it as unverified or partially verified instead of citing it as fact. Treat Chinese CNKI records as CNKI search records without requiring separate verification.
+Do not invent citations, findings, authors, publication years, journal placements, issue details, sample sizes, or DOIs. If a record's key facts or substantive claims cannot be checked, set `verification_status` to `unverified` or `partially_verified` instead of citing it as fact. `source_route: cnki` identifies provenance; it is not a verification label.
 
 ## Chrome Search Procedures
 
@@ -77,18 +77,19 @@ For CNKI:
 - Use ordinary keyword search for broad discovery and advanced search when author, title, journal, year range, source category, CSSCI, 北大核心, or other filters matter.
 - Prioritize CSSCI, 北大核心, and accounting, finance, management, and economics journals; give special attention to the priority Chinese journals listed above.
 - Extract and record the title, authors, source or journal, publication date, citation count, download count, result URL, and detail-page URL when available.
-- Treat CNKI search results as CNKI records. Do not require extra verification beyond recording the visible CNKI fields.
+- Treat CNKI search results as `source_route: cnki`. Do not require a second discovery route beyond recording the visible CNKI fields.
 - If CNKI asks for account login, institutional access, CAPTCHA, or download permission, stop and ask the user to handle the browser step manually. Do not attempt to bypass permissions or automate downloads.
 
-## Verification Labels
+## Provenance and Verification
 
-Use exactly one label for each English record:
+Keep these dimensions separate for every record:
 
-- `verified`: key facts are checked through Google Scholar.
-- `partially verified`: title/authors/year or venue are supported, but important details such as findings, sample, identification, DOI, or final publication status are not fully checked.
-- `unverified`: discovered through search or memory but not confirmed from a reliable source.
+- `source_route`: `openalex`, `google_scholar`, `cnki`, `publisher`, `ssrn`, `nber`, `user`, `manual`, or `unknown`.
+- `verification_status: verified`: the facts used are supported by the recorded route.
+- `verification_status: partially_verified`: bibliographic facts are supported, but important findings, sample, identification, DOI, or publication status remain unchecked.
+- `verification_status: unverified`: the record or claim has not been confirmed from an inspectable source.
 
-For Chinese records found in CNKI, use `CNKI record` instead of forcing a verified/partially verified/unverified label. Never use unverified English records as decisive support for a contribution, theory claim, or design precedent. They can be listed as candidates for follow-up.
+CNKI needs no second source by default: a visible CNKI record may support `verified` bibliographic facts, while substantive claims remain `partially_verified` until the necessary evidence is read. Never use an unverified record as decisive support for a contribution, theory claim, or design precedent.
 
 ## Staged Evidence Packets
 
@@ -100,25 +101,26 @@ Use screening granularity while the topic is still being discussed. The purpose 
 
 Use this table structure:
 
-| Paper | Source route | Verification | Research problem | Setting | Constructs | Main finding | Relevance to topic | Use in project | Deep-read priority |
-|---|---|---|---|---|---|---|---|---|---|
+| Paper | source_route | verification_status | Research problem | Setting | Constructs | Main finding | Relevance to topic | Use in project | deep_read_role | deep_read_priority |
+|---|---|---|---|---|---|---|---|---|---|---|
 
 Field rules:
 
 - `Paper`: title, authors, year, and source or venue when known.
-- `Source route`: OpenAlex, Google Scholar, CNKI, or a user-requested working-paper source.
-- `Verification`: for English records, use `verified`, `partially verified`, or `unverified`; for Chinese CNKI records, use `CNKI record`.
+- `source_route`: use the fixed provenance values above.
+- `verification_status`: use only `verified`, `partially_verified`, or `unverified` for every route.
 - `Research problem`: the paper's actual research question, not a generic topic label.
 - `Setting`: institutional setting, sample context, country or market, industry, and unit of analysis when known.
 - `Constructs`: core constructs, concepts, variables, or mechanisms touched by the paper.
 - `Main finding`: the main result, tied to setting and evidence; do not generalize beyond what is verified.
 - `Relevance to topic`: why this paper matters or does not matter for the user's current topic.
 - `Use in project`: choose precise roles such as background, contrast, mechanism support, measurement precedent, identification precedent, institutional setting, contribution boundary, unresolved competing evidence, or weak fit.
-- `Deep-read priority`: `theory core`, `empirical core`, `both theory and empirical core`, `background only`, or `no deep read`.
+- `deep_read_role`: `theory_core`, `empirical_core`, `theory_and_empirical_core`, `background_only`, or `no_deep_read`.
+- `deep_read_priority`: only `high`, `medium`, `low`, or `exclude`. This is scheduling priority, not literature role or completion state.
 
 ### Deep-Read Packet
 
-After the topic is settled, upgrade only theory-core and empirical-core records to deep-read granularity. Do not deep-read every background paper.
+After the topic is settled, upgrade records whose `deep_read_role` is `theory_core`, `empirical_core`, or `theory_and_empirical_core` to deep-read granularity. Do not deep-read every background paper.
 
 Use this extended structure for upgraded records:
 
@@ -139,7 +141,7 @@ Deep-read fields must stay project-facing:
 
 ### Role Consumption
 
-- Boss reads the screening packet first: `verification`, `setting`, `constructs`, `main finding`, `relevance to topic`, `use in project`, and `deep-read priority` to judge topic value, core constructs, contribution boundary, and reading priorities.
+- Boss reads the screening packet first: `verification_status`, `setting`, `constructs`, `main finding`, `relevance to topic`, `use in project`, `deep_read_role`, and `deep_read_priority` to judge topic value, core constructs, contribution boundary, and reading priorities.
 - Theory Analyst reads screening `constructs` first, then deep-read `mechanism chain`, `competing explanations`, `boundary conditions`, and `limitations` to build mechanisms, hypotheses, and observable predictions.
 - Empirical Designer reads screening `constructs` and `setting` first, then deep-read `data and sample`, `variables`, `identification strategy`, `empirical tests`, and `limitations` to design sample, variables, model, validity checks, mechanism tests, and robustness tests.
 

@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, manuscript section writing, and default Obsidian research-wiki knowledge capture. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Accounting Research Assistant
@@ -13,7 +13,7 @@ This is a single skill for accounting, finance, and financial management researc
 
 - In scope: research question shaping, literature understanding and positioning, theory and hypotheses, empirical design, data and variable planning, Stata/Python analysis plans, reproducibility planning, and manuscript section drafting or revision.
 - Out of scope: figure production, publication or submission strategy, reviewer response letters, rebuttals, seminar or PPT decks, Nature/CNS-style generic scientific writing, biomedical workflows, citation-file generation, BibTeX/RIS conversion, PDF downloading, paywalled full-text access, attachment management, and broad Zotero library maintenance.
-- Zotero owns reference-management operations. This skill may use the Zotero plugin to import candidate literature records, apply project collections/tags, and record Boss screening notes. PDF retrieval, institutional access, CAPTCHA, paid access, full-text attachment, duplicate cleanup, citation keys, and exports remain Zotero/manual follow-up work.
+- Zotero owns reference-management operations. This skill may use an available connector or supported API for user-authorized candidate import, collection, tag, and screening-note writes. Never modify Zotero SQLite files; when no supported write channel exists, provide exact manual actions. PDF retrieval, institutional access, CAPTCHA, paid access, full-text attachment, duplicate cleanup, citation keys, and exports remain Zotero/manual follow-up work.
 - Research Wiki owns persistent Obsidian knowledge capture. For verified literature, theory, design, variable, method, and claim work, this skill should use `$research-wiki` by default to read and update the project Knowledge Base while retaining responsibility for the research judgment.
 - Research Base is an opt-in companion to the Knowledge Base. Use it only for explicitly requested or project-authorized exploratory topic work, method prototypes, data-feasibility checks, design alternatives, discussion notes, and retained rejected paths. It must not become a parallel source-note or Zotero system.
 
@@ -41,32 +41,32 @@ Use `$research-wiki` by default for any task that creates or changes verified or
 At the start of those tasks:
 
 1. Identify the project name and likely Obsidian research-wiki path.
-2. Read the project `AGENTS.md` when present. Treat project-specific Zotero collections, research-wiki paths, local database safety rules, source-note schema, and read-state rules as binding for that project.
-3. If a project wiki exists, read `index.md`, `log.md`, and relevant pages in `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` before external search or new synthesis.
+2. Read project `AGENTS.md` and `.research-wiki/config.json` when present. Treat `AGENTS.md` policy and schema as binding; resolve `knowledge_base_path` and `research_base_path` from config, with CLI paths as one-command overrides.
+3. If a project wiki exists, read `index.md`, `log.md`, and relevant pages under the configured Knowledge Base `sources/`, `themes/`, `concepts/`, `methods/`, and `claims/` before external search or new synthesis.
 4. If no project wiki exists, recommend creating one with `$research-wiki` and binding it to the relevant Zotero collection before durable literature work.
 5. After Boss screening or any durable synthesis, call `$research-wiki` to create or update source notes and synthesis pages, then continue AR reasoning from the updated wiki state.
 
 Do not force Obsidian writes for temporary chat, one-off conceptual explanation, narrow copyediting, or disposable brainstorming. Before the first write to an Obsidian project, state the exact project path and get user confirmation; after confirmation, later work on the same project may update that wiki by default.
 
-Use this handoff contract when passing records or decisions to `$research-wiki`: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
+Use the canonical handoff in `references/zotero-literature-workflow.md`: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, `deep_read_completed`, `source_route`, and `verification_status`. Do not drop fields when creating a source note.
 
-For source-note read progress, treat the research wiki frontmatter as the authority. Zotero tags may be helpful for filtering, but if Zotero and `Knowledge Base/sources/*.md` disagree, prefer the source note and record any needed Zotero sync as follow-up. Use `status: screened | deep_read_in_progress | deep_read_done | deep_read_skip`, `need_fulltext_read: true | false`, `read_level: abstract | intro_design_conclusion | fulltext`, and `deep_read_completed: YYYY-MM-DD` when a project has not defined a different schema.
+For source-note read progress, treat `<knowledge_base_path>/sources/*.md` frontmatter as the authority. Zotero tags are secondary. Keep `source_route` (provenance), `verification_status` (verification), and `read_level` (evidence depth) separate. Use `deep_read_priority: high | medium | low | exclude`; `high` and `medium` default to `need_fulltext_read: true`, while `low` and `exclude` default to `false`, subject to an explicit evidence-based override except for `exclude`. Refresh existing notes with `$research-wiki refresh-source-note` so Zotero metadata changes do not erase manual analysis or read progress.
 
 ## Research Base (Explicit Opt-In)
 
 Read `references/research-base-workflow.md` whenever the user asks to establish, use, save to, organize, archive, or promote a Research Base, or when project `AGENTS.md` explicitly enables it. Do not create a Research Base for routine chat, temporary brainstorming, or one-off explanation.
 
-1. Read project `AGENTS.md` first. It is authoritative for the Research Base path, directory layout, language, metadata, status values, and promotion rules. If Research Base already exists, read its `README.md`, `index.md`, `log.md`, and the relevant active notes before writing.
+1. Read project `AGENTS.md` and `.research-wiki/config.json` first. `AGENTS.md` is authoritative for policy and schema; config supplies the machine-readable Research Base path. If Research Base already exists, read its `README.md`, `index.md`, `log.md`, and the relevant active notes before writing.
 2. State the exact Research Base path and obtain confirmation before the first write. Use `$research-wiki` to initialize or check the default structure only after that confirmation.
 3. Classify the output before filing it. Put Zotero-backed source notes, verified literature conclusions, stable concepts, mature methods, and reusable claims in the Knowledge Base. Put candidate topics, method prototypes, data feasibility, design alternatives, and decision records in Research Base only when the user or project rule authorizes persistence.
 4. Label Research Base content `unverified`, `partially_verified`, or `verified`. Do not present expected coefficients, data fields, identification assumptions, or literature facts as established before verification.
 5. Link to relevant Knowledge Base pages rather than duplicating source-note content, Zotero item keys, PDF status, or read-progress metadata. Update Research Base `index.md` and append `log.md` whenever a note is added, renamed, archived, or changes status.
 6. Promote only on explicit user instruction or explicit project authorization. Verify dependencies; write only the reusable conclusion to the appropriate Knowledge Base page; add reciprocal links and dates; retain the original note as `promoted`; and update both indexes and logs. Never bulk-promote Research Base content.
-7. Preserve `rejected`, `superseded`, and `promoted` notes, including their reason and successor or destination links. Report whether the result was filed to Research Base or Knowledge Base, its evidence status, and whether a promotion occurred.
+7. Preserve `rejected`, `superseded`, and `promoted` notes. Record `decision_reason`, `superseded_by`, or `promoted_at` as applicable, plus successor or destination links. Report whether the result was filed to Research Base or Knowledge Base, its evidence status, and whether a promotion occurred.
 
 ## Boss-Led Agent Orchestration
 
-Use the Boss-led multi-agent workflow only when the user explicitly asks for multi-agent, team, Boss-led, or independent-agent collaboration, or when the user uses the default prompt that explicitly requests Boss-led multi-agent mode. Otherwise, first mention that the skill can switch into Boss-led multi-agent mode, then continue with the ordinary workflow unless the user authorizes agent creation.
+Default to the ordinary single-agent workflow. Use Boss-led or other multi-agent collaboration only when the user explicitly asks for multi-agent, team, Boss-led, or independent-agent work. Do not advertise or start role agents by default.
 
 When Boss-led mode is active, the Boss is responsible for the research plan, role assignment, synthesis, and critical review. Read `references/agent-roles.md` before creating role agents or describing the team protocol.
 
@@ -135,7 +135,7 @@ Default runtime protocol:
 2. Boss applies the topic discussion gate before deep role-agent work.
 3. When the user provides or invites multiple topics, Boss first builds a topic portfolio instead of prematurely locking one topic.
 4. If the topic is not locked, Boss may start `literature_reviewer` only for low-cost screening and must explain the purpose and limits to the user.
-5. Start deep `literature_reviewer` work only after `LOCK_TOPIC`. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses CNKI only and does not require extra verification. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
+5. Start deep `literature_reviewer` work only after `LOCK_TOPIC`. English literature uses OpenAlex for preliminary screening and Google Scholar for verification. Chinese literature uses `source_route: cnki` and the same three-value `verification_status`; no second discovery route is required. Do not search working papers unless the user explicitly asks for working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence.
 6. For durable literature work, Literature Reviewer first checks the project research-wiki if available, then imports useful new candidate records with sufficient metadata into the project Zotero inbox using the Zotero plugin. Import candidate records, not every search hit and not only final deep-read records. Do not download PDFs.
 7. Boss screens imported or wiki-known candidate records by title and abstract, classifies their project role, assigns deep-read priority, and records Zotero collection/tag decisions plus the research-wiki handoff fields.
 8. Boss uses `$research-wiki` to write or update durable source notes and synthesis pages after screening, then reports findings, blockers, direct competitors, high-priority papers, and papers requiring manual PDF retrieval to the user.
@@ -209,7 +209,7 @@ Produce a compact research memo with:
 
 ### Literature Mapping
 
-Create staged literature evidence packets. During topic discussion, use screening granularity with fields for paper, verification, research problem, setting, constructs, main finding, relevance to topic, use in project, and deep-read priority. After the topic is settled, upgrade only theory-core and empirical-core records to deep-read granularity with fields for mechanism chain, competing explanations, boundary conditions, data and sample, variables, identification strategy, empirical tests, limitations, and implications for the user's project.
+Create staged literature evidence packets. During topic discussion, use screening granularity with `source_route`, `verification_status`, `deep_read_role`, and `deep_read_priority` plus the research problem, setting, constructs, finding, relevance, and project use. After the topic is settled, upgrade only core-role records to deep-read granularity with mechanism, boundary, data, variable, identification, test, limitation, and project-implication fields.
 
 Read `references/literature-map.md` when the user asks for a literature review, paper positioning, related-work section, literature-use strategy, gap analysis, or OpenAlex-based preliminary search.
 
@@ -222,7 +222,7 @@ Use current sources when the user asks for the latest papers, specific article d
 Default literature source policy:
 
 - English literature: use OpenAlex for preliminary discovery and Google Scholar for verification.
-- Chinese literature: use CNKI only; CNKI records do not require extra verification.
+- Chinese literature: use CNKI as `source_route`; no second discovery route is required, but still assign `verification_status`.
 - Working papers: do not search by default. Include working papers, SSRN, NBER, unpublished papers, or latest working-paper evidence only when the user explicitly asks for them.
 
 ### Theory and Hypotheses

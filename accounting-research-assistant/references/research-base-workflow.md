@@ -4,9 +4,9 @@ Use this reference only when the user explicitly requests Research Base work or 
 
 ## Activation and Authority
 
-1. Read project `AGENTS.md` before any Research Base action. Its path, directory layout, language, frontmatter, status values, and promotion conditions override this reference.
+1. Read project `AGENTS.md` and `.research-wiki/config.json` before any Research Base action. `AGENTS.md` controls policy, language, frontmatter, status, and promotion conditions; config supplies machine-readable paths and optional `research_base_schema_path`.
 2. Do not create a Research Base because a normal discussion seems useful. Temporary chat, disposable brainstorming, narrow editing, and one-off explanations remain outside it.
-3. Before the first write, state the exact path and obtain user confirmation. The default helper path is `<project>/Research Base`; use a project-defined path when present.
+3. Before the first write, state the exact path and obtain user confirmation. Resolve `research_base_path` from config (default `Research Base`); a CLI path is a one-command override.
 4. When it exists, read `README.md`, `index.md`, `log.md`, and relevant active notes before writing. Treat index/log updates as part of each durable change.
 
 ## Evidence Boundary
@@ -48,6 +48,9 @@ last_updated: YYYY-MM-DD
 kb_promotion: false
 related_kb_pages: []
 supersedes:
+promoted_at:
+superseded_by:
+decision_reason:
 ```
 
 Titles may be English; use Chinese prose by default unless the project rules say otherwise. Preserve English for constructs, variables, code, standards, and necessary quotations.
@@ -58,9 +61,11 @@ Titles may be English; use Chinese prose by default unless the project rules say
 2. **Label evidence.** Mark unverified literature facts, data fields, sample coverage, mappings, identification assumptions, and expected results as `unverified` or `partially_verified`.
 3. **Link, do not duplicate.** Link related Knowledge Base pages; preserve Zotero/source-note authority there.
 4. **Maintain navigation.** Add, rename, archive, or status-change notes in `index.md`; append the date, changed note, and decision to `log.md`.
-5. **Archive transparently.** Move rejected or deferred work to `90_Archived_or_Rejected/` when the project uses archival folders, or retain an explicit `rejected`/`superseded` status where the project schema specifies in-place status. Never delete the research trail.
-6. **Promote only with authorization.** The user must explicitly request promotion unless `AGENTS.md` authorizes it. Verify the underlying evidence, write a concise stable conclusion to the appropriate Knowledge Base page, add reciprocal links and dates, set the original note to `promoted`, `kb_promotion: true`, and `evidence_status: verified`, then update both indexes and logs.
+5. **Archive transparently.** Move rejected or deferred work to `90_Archived_or_Rejected/` when the project uses archival folders, or retain an explicit `rejected`/`superseded` status where the project schema specifies in-place status. Set `decision_reason` for rejected work and `superseded_by` for replaced work. Never delete the research trail.
+6. **Promote only with authorization.** The user must explicitly request promotion unless `AGENTS.md` authorizes it. Verify the underlying evidence, write a concise stable conclusion to the appropriate Knowledge Base page, add reciprocal links and dates, set the original note to `promoted`, `kb_promotion: true`, `evidence_status: verified`, and `promoted_at: YYYY-MM-DD`, then update both indexes and logs.
 7. **Report the boundary.** Tell the user whether content was stored in Research Base or Knowledge Base, its evidence status, and whether promotion occurred.
+
+Use `$research-wiki init-research-base` and `check-research-base` without Zotero preflight. The validator accepts scalar, inline-list, and multiline-list frontmatter plus a project schema JSON. It returns `valid`, `errors`, and `warnings`; errors exit nonzero unless `--report-only` is explicit.
 
 ## Maintainer Acceptance Matrix
 
