@@ -2,9 +2,9 @@
 
 ## Version / 版本
 
-Current version: `v1.0.0`
+Current version: `v1.1.0`
 
-当前版本：`v1.0.0`
+当前版本：`v1.1.0`
 
 ## Overview / 概览
 
@@ -12,9 +12,25 @@ Current version: `v1.0.0`
 
 `accounting-research-assistant` 是一个面向会计学、金融学和财务管理研究的 Codex Skill，用于帮助研究者从宽泛研究兴趣出发，逐步形成研究问题、文献定位、理论机制、实证设计、数据方案、可复现代码计划和论文写作文本。
 
-It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development. Since v1.0.0, durable literature and synthesis work is designed to flow through the project Obsidian research-wiki by default.
+It is especially suited for accounting papers, A-share empirical studies, audit research, disclosure research, financial reporting quality, corporate governance, ESG and sustainability disclosure, capital-market accounting research, manuscript revision, and research-plan development. Verified durable literature and synthesis work flows through the project Obsidian research-wiki by default; v1.1.0 adds an explicit Research Base path for exploratory material that is not yet ready for the Knowledge Base.
 
-该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。从 v1.0.0 开始，具有长期价值的文献与综合判断默认进入项目 Obsidian research-wiki。
+该 Skill 特别适合会计学术论文、A 股实证研究、审计研究、信息披露研究、财务报告质量研究、公司治理研究、ESG 与可持续披露、资本市场会计研究、论文修改和研究计划制定。已核验的长期文献与综合判断默认进入项目 Obsidian research-wiki；v1.1.0 增加仅在明确启用时使用的 Research Base，用于尚未进入 Knowledge Base 的探索性内容。
+
+## What's New in v1.1.0 / 当前版本改动
+
+- Added an opt-in Research Base workflow for candidate topics, conversation notes, method prototypes, data-feasibility checks, design alternatives, and transparent retained decision history.
+- Separated the evidence boundary: Zotero remains the reference layer; research-wiki Knowledge Base holds source-traceable or verified knowledge; Research Base holds explicitly labelled exploratory work.
+- Added mandatory read-before-write, exact-path confirmation, metadata, index/log, no-duplicate-source-note, archive, and promotion checks for Research Base.
+- Restricted promotion to explicit user instruction or project `AGENTS.md` authorization; promoted notes retain their original reasoning and reciprocal Knowledge Base links.
+- Added maintainer acceptance scenarios for non-opt-in behavior, prototypes, source authority, promotion, archiving, and local language rules.
+
+中文说明：
+
+- 增加显式启用的 Research Base 工作流，用于候选选题、讨论记录、方法原型、数据可行性、设计备选和可追溯的决策历史。
+- 明确证据边界：Zotero 仍是引用层；research-wiki Knowledge Base 保存可追溯或已核验知识；Research Base 保存明确标记的探索性内容。
+- 为 Research Base 增加读后写前检查、准确路径确认、元数据、index/log、禁止重复 source note、归档和升级检查。
+- 仅在用户明确要求或项目 `AGENTS.md` 授权后升级内容；升级笔记保留原始推理与 Knowledge Base 的双向链接。
+- 增加未启用、原型、来源权威、升级、归档及本地语言规则等维护者验收场景。
 
 ## What's New in v1.0.0 / 当前版本改动
 

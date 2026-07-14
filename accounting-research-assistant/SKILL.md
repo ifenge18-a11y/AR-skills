@@ -2,7 +2,7 @@
 name: accounting-research-assistant
 description: Assist accounting, finance, and financial management research workflows across topic refinement, literature understanding, theory development, empirical research design, data and variable planning, reproducible Stata/Python analysis planning, manuscript section writing, and default Obsidian research-wiki knowledge capture. Use when Codex is asked to help with academic accounting research, archival accounting studies, audit research, financial reporting research, management accounting research, ESG/accounting disclosure studies, capital market accounting research, Chinese A-share accounting research, manuscript drafting or revision, or research project planning in accounting and related finance fields.
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Accounting Research Assistant
@@ -14,7 +14,8 @@ This is a single skill for accounting, finance, and financial management researc
 - In scope: research question shaping, literature understanding and positioning, theory and hypotheses, empirical design, data and variable planning, Stata/Python analysis plans, reproducibility planning, and manuscript section drafting or revision.
 - Out of scope: figure production, publication or submission strategy, reviewer response letters, rebuttals, seminar or PPT decks, Nature/CNS-style generic scientific writing, biomedical workflows, citation-file generation, BibTeX/RIS conversion, PDF downloading, paywalled full-text access, attachment management, and broad Zotero library maintenance.
 - Zotero owns reference-management operations. This skill may use the Zotero plugin to import candidate literature records, apply project collections/tags, and record Boss screening notes. PDF retrieval, institutional access, CAPTCHA, paid access, full-text attachment, duplicate cleanup, citation keys, and exports remain Zotero/manual follow-up work.
-- Research Wiki owns persistent Obsidian knowledge capture. For durable literature, theory, design, variable, method, and claim work, this skill should use `$research-wiki` by default to read and update the project knowledge base while retaining responsibility for the research judgment.
+- Research Wiki owns persistent Obsidian knowledge capture. For verified literature, theory, design, variable, method, and claim work, this skill should use `$research-wiki` by default to read and update the project Knowledge Base while retaining responsibility for the research judgment.
+- Research Base is an opt-in companion to the Knowledge Base. Use it only for explicitly requested or project-authorized exploratory topic work, method prototypes, data-feasibility checks, design alternatives, discussion notes, and retained rejected paths. It must not become a parallel source-note or Zotero system.
 
 When a user request mixes in-scope and out-of-scope work, handle the in-scope research work and explicitly route the out-of-scope portion to the appropriate tool or a separate workflow.
 
@@ -31,10 +32,11 @@ Start every request by classifying the task into one or more internal routes. If
 | Data and variables | Databases, joins, variable definitions, sample filters | `references/data-and-variables.md` |
 | Code planning | Stata/Python workflow, script order, reproducibility checks | `references/data-and-variables.md` |
 | Manuscript writing | Abstract, introduction, theory, research design, result narrative | `references/writing-workflow.md` |
+| Research Base | Persistent exploratory ideas, prototypes, feasibility checks, design options, archive or promotion | `references/research-base-workflow.md` |
 
 ## Research Wiki Default
 
-Use `$research-wiki` by default for any task that creates or changes durable project knowledge: literature discovery, screening, review, positioning, theory mechanisms, research design precedents, variable or method sourcing, and reusable answers about the project.
+Use `$research-wiki` by default for any task that creates or changes verified or source-traceable project knowledge: literature discovery, screening, review, positioning, theory mechanisms, research design precedents, variable or method sourcing, and reusable answers about the project. Do not place unverified research concepts, prototypes, or feasibility assumptions into the Knowledge Base merely because they are durable; use the opt-in Research Base workflow below when applicable.
 
 At the start of those tasks:
 
@@ -49,6 +51,18 @@ Do not force Obsidian writes for temporary chat, one-off conceptual explanation,
 Use this handoff contract when passing records or decisions to `$research-wiki`: `project`, `zotero_item_key`, `boss_category`, `deep_read_priority`, `boss_screening_reason`, `pdf_status`, `project_use`, `need_fulltext_read`, `read_level`, and `deep_read_completed`.
 
 For source-note read progress, treat the research wiki frontmatter as the authority. Zotero tags may be helpful for filtering, but if Zotero and `Knowledge Base/sources/*.md` disagree, prefer the source note and record any needed Zotero sync as follow-up. Use `status: screened | deep_read_in_progress | deep_read_done | deep_read_skip`, `need_fulltext_read: true | false`, `read_level: abstract | intro_design_conclusion | fulltext`, and `deep_read_completed: YYYY-MM-DD` when a project has not defined a different schema.
+
+## Research Base (Explicit Opt-In)
+
+Read `references/research-base-workflow.md` whenever the user asks to establish, use, save to, organize, archive, or promote a Research Base, or when project `AGENTS.md` explicitly enables it. Do not create a Research Base for routine chat, temporary brainstorming, or one-off explanation.
+
+1. Read project `AGENTS.md` first. It is authoritative for the Research Base path, directory layout, language, metadata, status values, and promotion rules. If Research Base already exists, read its `README.md`, `index.md`, `log.md`, and the relevant active notes before writing.
+2. State the exact Research Base path and obtain confirmation before the first write. Use `$research-wiki` to initialize or check the default structure only after that confirmation.
+3. Classify the output before filing it. Put Zotero-backed source notes, verified literature conclusions, stable concepts, mature methods, and reusable claims in the Knowledge Base. Put candidate topics, method prototypes, data feasibility, design alternatives, and decision records in Research Base only when the user or project rule authorizes persistence.
+4. Label Research Base content `unverified`, `partially_verified`, or `verified`. Do not present expected coefficients, data fields, identification assumptions, or literature facts as established before verification.
+5. Link to relevant Knowledge Base pages rather than duplicating source-note content, Zotero item keys, PDF status, or read-progress metadata. Update Research Base `index.md` and append `log.md` whenever a note is added, renamed, archived, or changes status.
+6. Promote only on explicit user instruction or explicit project authorization. Verify dependencies; write only the reusable conclusion to the appropriate Knowledge Base page; add reciprocal links and dates; retain the original note as `promoted`; and update both indexes and logs. Never bulk-promote Research Base content.
+7. Preserve `rejected`, `superseded`, and `promoted` notes, including their reason and successor or destination links. Report whether the result was filed to Research Base or Knowledge Base, its evidence status, and whether a promotion occurred.
 
 ## Boss-Led Agent Orchestration
 
@@ -291,6 +305,7 @@ For manuscript work:
 - `references/agent-roles.md`: Boss-led multi-agent role definitions, runtime protocol, and output contracts.
 - `references/literature-map.md`: literature review workflow, positioning matrix, OpenAlex discovery, and search guidance.
 - `references/zotero-literature-workflow.md`: default research-wiki and Zotero literature persistence workflow, Boss abstract screening fields, collection structure, tag vocabulary, Obsidian handoff fields, read-state tracking, duplicate-work prevention, Zotero update safety, and manual PDF follow-up rules.
+- `references/research-base-workflow.md`: opt-in exploratory Research Base activation, metadata, evidence labels, navigation, archive, promotion, and maintainer acceptance scenarios.
 - `references/research-design.md`: empirical accounting design patterns, model templates, and validity checks.
 - `references/data-and-variables.md`: common data sources, variable construction habits, and reproducibility checklist.
 - `references/writing-workflow.md`: accounting and finance manuscript section writing workflow.

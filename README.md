@@ -9,8 +9,28 @@
 ## Main Skill
 
 - Skill name: `accounting-research-assistant`
-- Version: `v1.0.0`
+- Version: `v1.1.0`
 - Primary audience: accounting, finance, financial management, audit, disclosure, governance, ESG, capital markets, and China A-share empirical researchers.
+
+## Accounting Research Assistant v1.1.0
+
+Version `v1.1.0` adds an explicit Research Base workflow for research work that is persistent but not yet evidence-grounded enough for the project Knowledge Base. It is activated only by a project `AGENTS.md` rule or an explicit user request, and its first write requires an exact-path confirmation. Research Base preserves candidate topics, conversation notes, method prototypes, data-feasibility checks, design alternatives, and rejected or superseded paths with explicit evidence labels.
+
+`v1.1.0` 增加显式启用的 Research Base 工作流，用于需要长期保留、但尚不足以进入项目 Knowledge Base 的研究工作。它只有在项目 `AGENTS.md` 规则或用户明确请求时才启用，首次写入仍须确认准确路径。Research Base 保存带有明确证据标签的候选选题、讨论记录、方法原型、数据可行性、设计备选和被否决或替代的方案。
+
+Key updates:
+
+- Keeps Zotero authoritative for reference management, research-wiki Knowledge Base for source-traceable or verified knowledge, and Research Base for opt-in exploratory work.
+- Requires Research Base preflight, evidence status, index/log maintenance, links rather than duplicate source notes, and transparent archive history.
+- Allows promotion only through explicit user instruction or project authorization, after verification and reciprocal Knowledge Base/Research Base links.
+- Documents acceptance scenarios for no-opt-in behavior, prototype filing, source authority, promotion, archiving, and project language rules.
+
+主要更新：
+
+- 保持 Zotero 的引用管理权威、research-wiki Knowledge Base 的可追溯或已核验知识权威，以及 Research Base 的可选探索性工作边界。
+- 要求 Research Base 预检、证据状态、index/log 维护、链接而非重复 source note，以及透明的归档历史。
+- 仅在明确用户指令或项目授权后，且完成核验与双向链接后，才能升级到 Knowledge Base。
+- 记录未启用、原型归档、来源权威、升级、归档和项目语言规则的验收场景。
 
 ## Accounting Research Assistant v1.0.0
 
@@ -38,7 +58,7 @@ Key updates:
 
 - Topic development: refine broad interests into testable and feasible research questions.
 - Literature understanding: build Chinese and English literature matrices, identify theoretical tensions, position a project, and mark verification status.
-- Obsidian knowledge capture: use `$research-wiki` by default to persist durable source notes, literature synthesis, methods, concepts, and claims.
+- Obsidian knowledge capture: use `$research-wiki` by default to persist source-traceable or verified source notes, literature synthesis, methods, concepts, and claims; use Research Base only when explicitly enabled for exploratory work.
 - Theory and hypotheses: develop mechanisms, competing explanations, boundary conditions, and testable predictions.
 - Empirical design: plan samples, variables, models, fixed effects, clustering, robustness tests, mechanism tests, heterogeneity tests, and validity threats.
 - Data and variables: define data sources, merge keys, sample filters, variable construction, winsorization, scaling, lagging, and reproducibility checks.
